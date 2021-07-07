@@ -1,11 +1,33 @@
 import './App.css';
 
+import React from 'react';
+import { Route } from 'react-router-dom';
+
+import Inicio from './views/incio.jsx';
+import Home from './views/home.jsx';
+import DetailCountry from './views/detail_country.jsx';
+import MiPerfil from './views/mi_perfil';
+import Activities from './views/activities';
+import AddActivities from './views/add_activities';
+import ShowActivities from './views/show_activities';
+
 function App() {
   return (
-    <div className="App">
-      <h1>Henry Countries</h1>
-    </div>
+    <>
+    <Route exact path='/inicio' component={Inicio} />
+    <Route exact path='/' component={Home} />
+    <Route path='/perfil' component={MiPerfil} />
+    <Route path='activities' componente={Activities} />
+    <Route path='/activities/add' component={AddActivities} />
+    <Route path='activities/show' component={ShowActivities} />
+    <Route exact path='/countries/:id' component={DetailCountry} />
+    </>
   );
 }
 
 export default App;
+
+/*
+1. Inicio: Primero hay que hacer el back
+2. Estaria bueno que la ruta de MIPerfil sea /:name
+*/
