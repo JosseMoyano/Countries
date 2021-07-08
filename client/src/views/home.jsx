@@ -1,20 +1,20 @@
 import { React, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 import Pais from '../components/pais';
-import { getCountry, searchCountries } from '../redux/action';
+import { getCountry, searchCountries, clearCountriesLoaded, } from '../redux/action';
 
 
 export default function Home (){
 
     const [ country, setCountry ] = useState("");
     const dispatch = useDispatch();
-    const countries = useSelector( state => state.countries);
-    const countriesLoaded = useSelector( state => state.countriesLoades); 
+    let countries = useSelector( state => state.countries);
+    let countriesLoaded = useSelector( state => state.countriesLoades); 
 
     useEffect(() => {
         dispatch(getCountry());
-    },[dispatch])
+        return dispatch(clearCountriesLoaded())
+    },[dispatch,])
 
     const hanldeOnChange = (e) => {
         setCountry(e.target.value)
@@ -24,19 +24,11 @@ export default function Home (){
         e.preventDefault();
         dispatch(searchCountries(country))
         setCountry("");
-    }    
+    }         
 
     return (
         <>
-            <header>
-                <nav>
-                    <ul>
-                        <li>
-                            <NavLink exact to='/perfil'>Mi Perfil</NavLink>
-                            <NavLink exact to='/activities'>Actividades</NavLink>
-                        </li>
-                    </ul>
-                </nav>
+            <header>                
                 <div>
                     {/* hay que agregar la funcionalidad que me vaya mostrando los paises  que coinciden con lo que se va escribiendo en el imput (Diego lo hizo     en una HW) */}
                     <input type='text' placeholder='Escribi aqui el País que deseas encontrar' onChange={hanldeOnChange} value={country} />
@@ -44,10 +36,10 @@ export default function Home (){
                 </div>
                 <div>
                     {/* cada button tiene una funcionalidad de filtro diferente que hay     que aplicar */}
-                    <button>CONTINENTE</button>
+                    <button >CONTINENTE</button>
                     <button>ACTIVIDAD</button>
-                    <button>A-Z</button>
-                    <button>Z-A</button>
+                    <button >A-Z</button>
+                    <button >Z-A</button>
                     <button>POBLACIÓN</button>
                 </div>
             </header>

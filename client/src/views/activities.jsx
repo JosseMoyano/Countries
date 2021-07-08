@@ -6,6 +6,7 @@ export default function Activities () {
 
     return (
         <div>
+            <h1>Hola</h1>
             <NavLink to= '/activities/add' >Añadir actividades</NavLink>
             <NavLink to='/activities/show' >Mostrar actividades</NavLink>
         </div>

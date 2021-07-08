@@ -1,4 +1,4 @@
-import { GET_COUNTRY, SEARCH_COUNTRIES, ADD_FAVOURITE, REMOVE_FAVOURITE, GET_COUNTRY_DETAIL, CLEAR } from '../action';
+import { GET_COUNTRY, SEARCH_COUNTRIES, ADD_FAVOURITE, REMOVE_FAVOURITE, GET_COUNTRY_DETAIL, CLEAR, CLEAR_COUNTRIES_LOADED } from '../action';
 
 const initialState = {
     countries : undefined,
@@ -42,6 +42,13 @@ export default function reducer (state = initialState, action){
                 ...state,
                 countriesDetail: action.payload
             }
+
+        case CLEAR_COUNTRIES_LOADED:
+            return{
+                ...state,
+                countriesLoades: action.payload
+            }       
+            
 
         default:
             return state;

@@ -10,14 +10,16 @@ import MiPerfil from './views/mi_perfil';
 import Activities from './views/activities';
 import AddActivities from './views/add_activities';
 import ShowActivities from './views/show_activities';
+import Nav from './views/nav';
 
 function App() {
   return (
     <>
-    <Route exact path='/inicio' component={Inicio} />
+    <Route path='/' component={Nav} />
+    <Route path='/inicio' component={Inicio} />
     <Route exact path='/' component={Home} />
     <Route path='/perfil' component={MiPerfil} />
-    <Route path='activities' componente={Activities} />
+    <Route exact path='/activities' component={Activities} />
     <Route path='/activities/add' component={AddActivities} />
     <Route path='activities/show' component={ShowActivities} />
     <Route exact path='/countries/:id' component={DetailCountry} />

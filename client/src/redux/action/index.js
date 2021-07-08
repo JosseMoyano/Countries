@@ -6,6 +6,8 @@ export const ADD_FAVOURITE = 'ADD_FAVOURITE';
 export const REMOVE_FAVOURITE = 'REMOVE_FAVOURITE';
 export const GET_COUNTRY_DETAIL = 'GET_COUNTRY_DETAIL';
 export const CLEAR = 'CLEAR';
+export const CLEAR_COUNTRIES_LOADED = 'CLEAR_COUNTRIES_LOADED';
+export const ORDER_CONTINENTE = 'ORDER_CONTINENTE';
 
 
 export const getCountry = () => {
@@ -61,3 +63,11 @@ export const clearPage = () => {
         payload: undefined
     }
 }
+
+export const clearCountriesLoaded = () => {
+    return {
+        type: CLEAR_COUNTRIES_LOADED,
+        payload: undefined
+    }
+}
+
