@@ -1,10 +1,22 @@
-import { GET_COUNTRY, SEARCH_COUNTRIES, ADD_FAVOURITE, REMOVE_FAVOURITE, GET_COUNTRY_DETAIL, CLEAR, CLEAR_COUNTRIES_LOADED } from '../action';
+import { GET_COUNTRY, SEARCH_COUNTRIES, ADD_FAVOURITE, REMOVE_FAVOURITE, GET_COUNTRY_DETAIL, CLEAR_COUNTRY_DETAIL, CLEAR_COUNTRIES_SEARCHED, FILTER_CONTINENT, CLEAR_COUNTRIES_FILTER, SHOW_ACTIVITIES } from '../action';
 
 const initialState = {
-    countries : undefined,
-    countriesLoades: undefined,
-    countriesFavorites: [],
-    countriesDetail: undefined,
+    firstCountries :{
+        todo: undefined,
+        actual: undefined
+    },
+    searchedCountries: {
+        todo: undefined,
+        actual: undefined
+    },
+    countriesFavorites: {
+        todo: undefined,
+        actual: undefined
+    },
+    countriesDetail: undefined,    
+    countriesFilter: undefined,
+    activities: undefined
+    
 }
 
 export default function reducer (state = initialState, action){
@@ -12,23 +24,41 @@ export default function reducer (state = initialState, action){
         case GET_COUNTRY:
             return {
                 ...state,
-                countries: action.payload
+                firstCountries:{
+                    ...state.firstCountries,
+                    todo: action.payload,
+                    actual: action.payload,
+                } 
             }
+
         case SEARCH_COUNTRIES:
             return {
                 ...state,
-                countriesLoades: action.payload
-            }
+                searchedCountries:{
+                    ...state.searchedCountries,
+                    todo: action.payload,
+                    actual: action.payload,
+                    }
+                } 
+
         case ADD_FAVOURITE:
             return {
                 ...state,
-                countriesFavorites: [...state.countriesFavorites, action.payload]
+                countriesFavorites:{
+                    ...state.countriesFavorites,
+                    todo: [...state.countriesFavorites.todo, action.payload],
+                    actual: [...state.countriesFavorites.actual, action.payload],
             }
+        }
         
         case REMOVE_FAVOURITE:
             return {
                 ...state,
-                countriesFavorites: state.countriesFavorites.filter(c => c.id !== action.payload)
+                countriesFavorites:{
+                    ...state.countriesFavorites,
+                    todo: state.countriesFavorites.todo.filter(c => c.id !== action.payload),
+                    actual: state.countriesFavorites.todo.filter(c => c.id !== action.payload)
+                } 
             }
 
         case GET_COUNTRY_DETAIL:
@@ -37,19 +67,43 @@ export default function reducer (state = initialState, action){
                 countriesDetail: action.payload
             }
 
-        case CLEAR:
+        case CLEAR_COUNTRY_DETAIL:
             return{
                 ...state,
                 countriesDetail: action.payload
             }
 
-        case CLEAR_COUNTRIES_LOADED:
+        case CLEAR_COUNTRIES_SEARCHED:
             return{
                 ...state,
-                countriesLoades: action.payload
-            }       
-            
+                searchedCountries:{
+                    ...state.searchedCountries,
+                    todo: action.payload,
+                    actual: action.payload,
+                    }
+                }    
 
+        case FILTER_CONTINENT:
+            return {
+                ...state,
+                countriesFilter:{
+                    ...state.countriesFilter,
+                    [action.payload.continente]: state[action.payload.array].todo.filter(country => country.continente === action.payload.continente)
+                }
+        }
+
+        case CLEAR_COUNTRIES_FILTER:
+            return {
+                ...state,
+                countriesFilter: action.payload
+            }
+
+        case SHOW_ACTIVITIES:
+            return {
+                ...state,
+                activities: action.payload
+            }
+        
         default:
             return state;
     }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { searchCountries, clearCountriesLoaded } from '../redux/action';
+import { searchCountries, clearCountriesSearched } from '../redux/action';
 
 export default function AddActivities (){
 
@@ -19,7 +19,7 @@ export default function AddActivities (){
 
     const dispatch = useDispatch()
 
-    const countriesLoaded = useSelector(state => state.countriesLoades)
+    const countriesLoaded = useSelector(state => state.searchedCountries.todo)
 
     let countries;    
     if(Array.isArray(countriesLoaded)){        
@@ -95,7 +95,7 @@ export default function AddActivities (){
         idPais:[]
         })
         setName([])
-        dispatch(clearCountriesLoaded())
+        dispatch(clearCountriesSearched())
     }
 
     return (

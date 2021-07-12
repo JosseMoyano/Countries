@@ -5,9 +5,13 @@ export const SEARCH_COUNTRIES = 'SEARCH COUNTRIES';
 export const ADD_FAVOURITE = 'ADD_FAVOURITE';
 export const REMOVE_FAVOURITE = 'REMOVE_FAVOURITE';
 export const GET_COUNTRY_DETAIL = 'GET_COUNTRY_DETAIL';
-export const CLEAR = 'CLEAR';
-export const CLEAR_COUNTRIES_LOADED = 'CLEAR_COUNTRIES_LOADED';
-export const ORDER_CONTINENTE = 'ORDER_CONTINENTE';
+export const CLEAR_COUNTRY_DETAIL = 'CLEAR_COUNTRY_DETAIL';
+export const CLEAR_COUNTRIES_SEARCHED = 'CLEAR_COUNTRIES_SEARCHED';
+// export const ORDER_CONTINENTE = 'ORDER_CONTINENTE';
+export const FILTER_CONTINENT = 'FILTER_CONTINENT';
+export const CLEAR_COUNTRIES_FILTER = 'CLEAR_COUNTRIES_FILTER';
+export const SHOW_ACTIVITIES = 'SHOW_ACTIVITIES';
+
 
 
 export const getCountry = () => {
@@ -59,15 +63,42 @@ export const getCountryDetail = (id) => {
 
 export const clearPage = () => {
     return {
-        type: CLEAR,
+        type: CLEAR_COUNTRY_DETAIL,
         payload: undefined
     }
 }
 
-export const clearCountriesLoaded = () => {
+export const clearCountriesSearched = () => {
     return {
-        type: CLEAR_COUNTRIES_LOADED,
+        type: CLEAR_COUNTRIES_SEARCHED,
         payload: undefined
     }
 }
 
+export const clearCountriesFilter = () => {
+    return {
+        type: CLEAR_COUNTRIES_FILTER,
+        payload: undefined
+    }
+}
+
+export const filterContinent = (array, continente) => {
+    return {
+        type: FILTER_CONTINENT,
+        payload:{
+            array,
+            continente
+        }
+    }
+}
+
+export const showActivities = () => {
+    return async dispatch => {
+        const response = await fetch(`http://localhost:3001/activities/show`);
+         const json = await response.json();
+         dispatch({
+             type: SHOW_ACTIVITIES,
+             payload: json
+         });
+     }
+}
