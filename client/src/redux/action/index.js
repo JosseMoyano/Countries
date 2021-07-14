@@ -10,7 +10,10 @@ export const CLEAR_COUNTRIES_SEARCHED = 'CLEAR_COUNTRIES_SEARCHED';
 // export const ORDER_CONTINENTE = 'ORDER_CONTINENTE';
 export const FILTER_CONTINENT = 'FILTER_CONTINENT';
 export const CLEAR_COUNTRIES_FILTER = 'CLEAR_COUNTRIES_FILTER';
-export const SHOW_ACTIVITIES = 'SHOW_ACTIVITIES';
+export const GET_ACTIVITIES = 'GET_ACTIVITIES';
+export const ADD_FAVOURITE_ACTIVITY = 'ADD_FAVOURITE_ACTIVITY';
+export const ADD_ACTIVITY = 'ADD_ACTIVITY';
+export const FILTER_ACTIVITY = 'FILTER_ACTIVITY';
 
 
 
@@ -92,13 +95,38 @@ export const filterContinent = (array, continente) => {
     }
 }
 
-export const showActivities = () => {
+export const getActivities = () => {
     return async dispatch => {
         const response = await fetch(`http://localhost:3001/activities/show`);
          const json = await response.json();
          dispatch({
-             type: SHOW_ACTIVITIES,
+             type: GET_ACTIVITIES,
              payload: json
          });
      }
+}
+
+export const addActivity = (payload) => {
+    return {
+        type: ADD_ACTIVITY,
+        payload
+    }
+}
+
+export const addFavouriteActivity = (payload) => {
+    return {
+        type: ADD_FAVOURITE_ACTIVITY,
+        payload
+    }
+}
+
+export const filterActivity = (activity) => {
+    console.log('entre a la action:' ,activity)
+    return {
+        type: FILTER_ACTIVITY,
+        payload: {
+            activity
+        }
+        
+    }
 }

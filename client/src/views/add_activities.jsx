@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { searchCountries, clearCountriesSearched } from '../redux/action';
+import { searchCountries, clearCountriesSearched, addActivity } from '../redux/action';
 
 export default function AddActivities (){
 
@@ -84,6 +84,7 @@ export default function AddActivities (){
             headers: { 'Content-Type': 'application/json' },
         })
         .then(res => res.json())
+        .then(json => dispatch(addActivity(json)))
         .then(() => alert('Actividad Creada Con exito'))
         .catch((e) => alert('Faltan cargar Datos'));
         setCountry('')

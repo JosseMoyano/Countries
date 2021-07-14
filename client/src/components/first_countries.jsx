@@ -1,14 +1,20 @@
 import Pais from './pais';
-import PaisConFiltro from './pais_con_filtro';
+import Filtro from './filtro';
+import FiltroActividad from './filtro_actividad';
 
 export default function FirstCountries (props) {
 
     if (props.firstCountries) {         
         if(props.continente) {
             return (
-                <PaisConFiltro continente={props.continente} array='firstCountries'/>
+                <Filtro continente={props.continente} array='firstCountries'/>
             ) 
-        }
+        }    
+        if(props.actividad.length > 0) {
+            return(
+                <FiltroActividad actividad={parseInt(props.actividad.toString())} />
+            )
+        }  
         return (
             props.firstCountries?.map(country => (
             <Pais key={country.id} name={country.name} bandera={country.bandera} continente={country.continente} id={country.id} />

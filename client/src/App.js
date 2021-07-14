@@ -9,8 +9,8 @@ import DetailCountry from './views/detail_country.jsx';
 import MiPerfil from './views/mi_perfil';
 import Activities from './views/activities';
 import AddActivities from './views/add_activities';
-import ShowActivities from './views/show_activities';
 import Nav from './views/nav';
+import ShowActivities from './views/show_activities';
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
     <Route path='/perfil' component={MiPerfil} />
     <Route exact path='/activities' component={Activities} />
     <Route path='/activities/add' component={AddActivities} />
-    <Route path='activities/show' component={ShowActivities} />
+    <Route path='/activities/show' component={ShowActivities} />
     <Route exact path='/countries/:id' component={DetailCountry} />
     </>
   );
