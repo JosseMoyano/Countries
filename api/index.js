@@ -29,7 +29,8 @@ conn.sync({ force: true }).then(() => {
     console.log('%s listening at 3001'); // eslint-disable-line no-console
     fetch('https://restcountries.eu/rest/v2/all')
     .then(data => data.json())            
-    .then( data => data.forEach(c => guardarPais(c.alpha3Code, c.name, c.flag, c.region, c.capital, c.subregion, c.area, c.population)))  
-    console.log('Datos cargados')
+    .then(data => data.forEach(c => guardarPais(c.alpha3Code, c.name, c.flag, c.region, c.capital, c.subregion, c.area, c.population)))  
+    .catch(e => console.error(e))
+    console.log('Datos cargados con exito');
   });
 });
