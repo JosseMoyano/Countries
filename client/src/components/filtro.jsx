@@ -9,30 +9,28 @@ export default function Filtro (props) {
     const countriesFilter = useSelector(state => state.countriesFilter)
 
     useEffect(() => {
-        dispatch(filterContinent(props.array, props.continente));
-    }, [dispatch, props.array, props.continente])
-
-    if(countriesFilter){
-        if (countriesFilter[props.continente]?.length === 0){   
-            return (
-                <h1>No hay paises que coincidan con el filtro</h1>
-            ) 
-    
-        } else if (countriesFilter[props.continente]?.length > 0) {
-            return countriesFilter[props.continente]?.map(country => (
-                <Pais key={country.id} name={country.name} bandera={country.bandera} continente={country.continente} id={country.id} />
-            ))
-
+        dispatch(filterContinent(props.array, props.continente))
+    }, [ props.AZ, props.ZA, dispatch, props.array, props.continente, props.countries]) 
+        
+    if(props.countries?.length > 0){
+        if(countriesFilter){
+            if (countriesFilter[props.continente]?.length === 0){   
+                return (
+                    <h1>No hay paises que coincidan con el filtro</h1>
+                    ) 
+            } else if (countriesFilter[props.continente]?.length > 0) {
+                return countriesFilter[props.continente]?.map(country => (
+                    <Pais key={country.id} name={country.name} bandera={country.bandera} continente={country.continente} id={country.id} />
+                    ))
+            } else {
+                return (
+            <h1>Cargando</h1>)
+            }
         } else {
             return (
-                <h1>Cargando</h1>)
+                <h1>No hay paises que coincidan con el filtro</h1>)
         }
-    
     } else {
-        return (
-            <h1>No hay paises que coincidan con el filtro</h1>)
+        return <h1>No se encontro ningun país</h1>
     }
-    
-    
-        
 }

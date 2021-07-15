@@ -14,6 +14,7 @@ export const GET_ACTIVITIES = 'GET_ACTIVITIES';
 export const ADD_FAVOURITE_ACTIVITY = 'ADD_FAVOURITE_ACTIVITY';
 export const ADD_ACTIVITY = 'ADD_ACTIVITY';
 export const FILTER_ACTIVITY = 'FILTER_ACTIVITY';
+export const ORDER = 'ORDER';
 
 
 
@@ -121,12 +122,20 @@ export const addFavouriteActivity = (payload) => {
 }
 
 export const filterActivity = (activity) => {
-    console.log('entre a la action:' ,activity)
     return {
         type: FILTER_ACTIVITY,
         payload: {
             activity
         }
-        
+    }
+}
+
+export const order = (funcion) => {
+    console.log('entre a la action y me llego esto: ', funcion)
+    return {
+        type: ORDER,
+        payload: {
+            funcion
+        }
     }
 }

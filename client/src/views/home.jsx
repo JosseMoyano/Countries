@@ -1,9 +1,10 @@
 import { React, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import FirstCountries from '../components/first_countries';
 import SearchedCountries from '../components/searched_countries';
-import { getCountry, searchCountries, clearCountriesSearched, getActivities, } from '../redux/action';
-// import { orderByAZ, orderByZA, } from '../utils';
+import { getCountry, searchCountries, clearCountriesSearched, getActivities, order, } from '../redux/action';
+import { orderByAZ, orderByZA, orderMayorMenor, orderMenorMayor } from '../utils';
 
 export default function Home () {
     
@@ -15,8 +16,15 @@ export default function Home () {
 
     const [ country, setCountry ] = useState(""); 
     
+    //Ordenamiento por Poblacion
     const [ poblacion, setpoblacion ] = useState(false); 
+    const [ menorMayor, setMenorMayor ] = useState(false); 
+    const [ mayorMenor, setMayorMenor ] = useState(false); 
+    
+    //Ordenamiento por ABC
     const [ ABC, setABC ] = useState(false); 
+    const [ az, setAz] = useState(false); 
+    const [ za, setZa] = useState(false); 
     
     //filtros de Continente
    const [ continentes, setContinentes ] = useState(false)
@@ -32,15 +40,90 @@ export default function Home () {
         return dispatch(clearCountriesSearched())
     },[dispatch])    
 
+    // Efectos para los filtros de Continente y Actividad
+    useEffect(()=>{
+        if(actividades === false) setActividad([])
+        if(actividades === true) setContinentes(false)
+    },[actividades])
+
+    useEffect(()=>{
+        if(continentes === false) setcontinente(undefined)
+        if(continentes === true) setActividades(false)
+    },[continentes])
+
+    // Efectos para los ordenamientos ABC
+    useEffect(()=>{
+        if(ABC === false) {
+            setAz(false)  
+            setZa(false)
+        }
+        if(ABC === true) setpoblacion(false)
+    },[ABC])
+
+    useEffect(() => {
+        if(ABC === true) {
+            if(az === true) return dispatch(order(orderByAZ))
+            if(za === true) return dispatch(order(orderByZA))
+        } 
+        
+    }, [ABC, az, dispatch, za])
+
+    // Efectos para los ordenamientos Poblacion
+    useEffect(()=>{
+        if(poblacion === false) {
+            setMenorMayor(false)  
+            setMayorMenor(false)
+        }
+        if(poblacion === true) setABC(false)
+    },[poblacion])
+
+    useEffect(()=>{
+        if(poblacion === true){
+            if(menorMayor === true) return dispatch(order(orderMenorMayor))
+            if(mayorMenor === true) return dispatch(order(orderMayorMenor))
+        }
+    },[dispatch, mayorMenor, menorMayor, poblacion])
+   
+    
+
+    // useEffect(()=>{
+    //     setABC(false)
+    // },[poblacion])
+
+    //Un efecto para que cuando cambie de continente, el ABC quede en false. Buenardo!
+    // useEffect(()=>{
+    //     setABC(false)
+    // },[continente])
+
+
     const onChange = (e) => {
         if(e.target.name === 'Buscar') setCountry(e.target.value);
-        if(e.target.name === 'Continente') setcontinente(e.target.value);
-        if(e.target.name === 'Poblacion') setpoblacion(!poblacion);
-        if(e.target.name === 'ABC') setABC(!ABC);
+        if(e.target.name === 'Continente'){ 
+            if(continentes === true) setcontinente(e.target.value);
+            if(continentes === false) e.target.checked = false }
         if(e.target.name === 'actividad'){
             if(e.target.checked === true) setActividad([e.target.value]) 
-            if(e.target.checked === false) setActividad(actividad.filter(actividad => actividad !== e.target.value))
-        }        
+            if(e.target.checked === false) setActividad(actividad.filter(actividad => actividad !== e.target.value)) } 
+        if(e.target.name === 'ABC'){             
+            if(e.target.id === "AZ"){
+                setAz(true)  
+                setZa(false)
+            }
+            if(e.target.id === "ZA"){
+                setAz(false)  
+                setZa(true)
+            }
+        }
+        if(e.target.name === 'poblacion'){
+            if(e.target.id === 'MenorMayor'){
+                setMenorMayor(true)
+                setMayorMenor(false)
+            }
+            if(e.target.id === 'MayorMenor'){
+                setMenorMayor(false)
+                setMayorMenor(true)
+            }
+        }
     }
 
     const onClick = (e) => {
@@ -48,14 +131,12 @@ export default function Home () {
         if(e.target.name === 'Buscar') {
             dispatch(searchCountries(country))
             setCountry("")
+            setABC(false)
         }
-        if(e.target.name === 'Actividad'){
-            setActividades(!actividades)            
-        }
-        if(e.target.name === 'Continente'){
-            setContinentes(!continentes)
-            if(!continentes) setcontinente(undefined)
-        }
+        if(e.target.name === 'Actividad') setActividades(!actividades)            
+        if(e.target.name === 'Continente') setContinentes(!continentes)
+        if(e.target.name === 'ABC') setABC(!ABC)
+        if(e.target.name === 'poblacion') setpoblacion(!poblacion)
     }
 
     return (
@@ -91,28 +172,53 @@ export default function Home () {
                 <button onClick={onClick} value={actividades} name='Actividad'>ACTIVIDADES</button>                
                 {                    
                     actividades === true ? (
-                        activities?.map(a => (
-                            <div key={a.id} onChange={onChange}  >
-                            <input type='checkbox' value={a.id} name='actividad' />
-                            <label>{a.name}</label>
-                            </div>
-                        ))
+                        activities.length > 0 ? (
+                            activities?.map(a => (
+                                <div key={a.id} onChange={onChange}  >
+                                <input type='radio' id={a.name} value={a.id} name='actividad' />
+                                <label>{a.name}</label>
+                                </div>
+                            ))
+                        ) : (<h1>No hay actividades para Mostrar, primero crealas aqui: <NavLink to='/activities/add'>Add Activities</NavLink></h1>)
                     ) : (null)                    
-                }                
-                <div onChange={onChange}>
-                    <input type="radio" id="AZ" name="ABC" value={ABC}/>                           
-                    <label htmlFor="AZ">AZ</label>
-                    <input type="radio" id="ZA" name="ABC" value={!ABC}/>                           
-                    <label htmlFor="ZA">ZA</label>
-                </div>
-                <button value='Poblacion' name='Poblacion'>POBLACIÓN</button>
+                }       
+                <button onClick={onClick} value={ABC} name='ABC'>ABC</button> 
+                {
+                    ABC === true ? (
+                        <div onChange={onChange}>
+                            <input type="radio" id="AZ" name="ABC" value={az} />                           
+                            <label htmlFor="AZ">A-Z</label>
+                            <input type="radio" id="ZA" name="ABC" value={za}/>                           
+                            <label htmlFor="ZA">Z-A</label>
+                        </div>                        
+                    ) : (null)
+                }        
+                <button onClick={onClick} value={poblacion} name='poblacion'>POBLACIÓN</button>
+                {
+                    poblacion === true ? (
+                        <div onChange={onChange}>
+                            <input type="radio" id="MenorMayor" name="poblacion" value={menorMayor} />                           
+                            <label htmlFor="MenorMayor">Menor a Mayor</label>
+                            <input type="radio" id="MayorMenor" name="poblacion" value={mayorMenor}/>                           
+                            <label htmlFor="MayorMenor">Mayor a MenorA</label>
+                        </div>
+                    ) : (null)
+                }
             </div>
             {
-                searchedCountries.actual   ? (
-                    <SearchedCountries searchedCountries={searchedCountries.actual} actividad={actividad} continente={continente} array='searchedCountries'  />
-                ) : firstCountries.actual  ? (
-                    <FirstCountries firstCountries={firstCountries.actual} continente={continente} array='firstCountries' actividad={actividad} />
-                ) : (<h1>No hay paises</h1>)
+                ABC === true || poblacion === true ? (
+                    searchedCountries.todo   ? (
+                        <SearchedCountries  searchedCountries={searchedCountries.todo} ABC={ABC} AZ={az} ZA={za} actividad={actividad} continente={continente} array='searchedCountries'  />
+                    ) : firstCountries.todo  ? (
+                        <FirstCountries  firstCountries={firstCountries.todo} ABC={ABC} AZ={az} ZA={za} continente={continente} array='firstCountries' actividad={actividad} />
+                    ) : (<h1>No hay paises</h1>)
+                ) : (
+                    searchedCountries.actual   ? (
+                        <SearchedCountries searchedCountries={searchedCountries.actual} actividad={actividad} continente={continente} array='searchedCountries'  />
+                    ) : firstCountries.actual  ? (
+                        <FirstCountries firstCountries={firstCountries.actual} continente={continente} array='firstCountries' actividad={actividad} />
+                    ) : (<h1>No hay paises</h1>)
+                )
             }
         </>
     )

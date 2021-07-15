@@ -1,4 +1,4 @@
-import { GET_COUNTRY, SEARCH_COUNTRIES, ADD_FAVOURITE, REMOVE_FAVOURITE, GET_COUNTRY_DETAIL, CLEAR_COUNTRY_DETAIL, CLEAR_COUNTRIES_SEARCHED, FILTER_CONTINENT, CLEAR_COUNTRIES_FILTER, GET_ACTIVITIES, ADD_FAVOURITE_ACTIVITY, ADD_ACTIVITY, FILTER_ACTIVITY } from '../action';
+import { GET_COUNTRY, SEARCH_COUNTRIES, ADD_FAVOURITE, REMOVE_FAVOURITE, GET_COUNTRY_DETAIL, CLEAR_COUNTRY_DETAIL, CLEAR_COUNTRIES_SEARCHED, FILTER_CONTINENT, CLEAR_COUNTRIES_FILTER, GET_ACTIVITIES, ADD_FAVOURITE_ACTIVITY, ADD_ACTIVITY, FILTER_ACTIVITY, ORDER } from '../action';
 
 const initialState = {
     firstCountries :{
@@ -99,10 +99,8 @@ export default function reducer (state = initialState, action){
         case FILTER_ACTIVITY:
             return {
                 ...state,
-                countriesFilterByActivity:{
-                    ...state.countriesFilterByActivity,                    
-                    [action.payload.activity]: state.activities?.todo.filter(actividad => actividad.id === action.payload.activity),
-                }
+                countriesFilterByActivity: state.activities?.todo.filter(actividad => actividad.id === action.payload.activity),
+                
         }
 
         case CLEAR_COUNTRIES_FILTER:
@@ -136,6 +134,22 @@ export default function reducer (state = initialState, action){
             return {
                 ...state,
                 activitiesFavourite: [...state.activitiesFavourite, action.payload]
+            }
+
+        case ORDER:
+            return {
+                ...state,
+                searchedCountries:{
+                    ...state.searchedCountries,
+                    actual: state.searchedCountries.actual,
+                    todo: state.searchedCountries.todo?.sort(action.payload.funcion)
+                },
+                firstCountries:{
+                    ...state.firstCountries,
+                    actual: [...state.firstCountries.actual],
+                    todo: state.firstCountries.todo?.sort(action.payload.funcion)
+                }
+                
             }
         
         default:

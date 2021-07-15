@@ -1,12 +1,13 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import Activity from '../components/activity';
 import { addFavouriteActivity,  getActivities  } from '../redux/action';
 
 export default function ShowActivities(){
 
-    const activities = useSelector(state => state.activities)
+    const activities = useSelector(state => state.activities.todo)
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -20,10 +21,10 @@ export default function ShowActivities(){
     return(
         <>
         {
-           activities ? (activities?.map(actividad => (
-               <Activity key={actividad.id} onClick={onClick} id={actividad.id} name={actividad.name} countries={actividad.countries} temporada={actividad.temporada} duracion={actividad.duracion} dificultad={actividad.dificultad}/>
-           ))
-           ) : (<h1>Cargando</h1>)
+            activities.length > 0 ? (
+                activities?.map(actividad => (
+                    <Activity key={actividad.id} onClick={onClick} id={actividad.id} name={actividad.name} countries={actividad.countries} temporada={actividad.temporada} duracion={actividad.duracion} dificultad={actividad.dificultad}/> ))
+            ) : ( <h1>No hay actividades para Mostrar, primero crealas aqui: <NavLink to='/activities/add'>Add Activities</NavLink></h1> )
         }
         </>
     )

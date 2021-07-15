@@ -13,18 +13,19 @@ export default function FiltroActividad (props) {
         dispatch(filterActivity(props.actividad))
     },[dispatch, props.actividad])
 
-
-    if (countriesFilterByActivity){
-        if(countriesFilterByActivity.length === 0){
-            return (<h1>No hay actividades que coincidan con las busqueda</h1>)
-        } else  {
-            return (
-                countriesFilterByActivity[props.actividad]?.map(actividad => (
-                        <ActivitiesFiltro key={actividad.id} id={actividad.id} name={actividad.name} countries={actividad.countries} temporada={actividad.temporada} duracion={actividad.duracion} dificultad={actividad.duracion}  />
-                )))
-        }      
+    if (props.actividad !== undefined){
+        if(countriesFilterByActivity){
+            if(countriesFilterByActivity.length === 0){
+                return (<h1>No hay actividades que coincidan con las busqueda</h1>)
+            }  else {
+                return countriesFilterByActivity?.map(actividad => (
+                    <ActivitiesFiltro key={actividad.id} id={actividad.id} name={actividad.name} countries={actividad.countries} temporada={actividad.temporada} duracion={actividad.duracion} dificultad={actividad.duracion}  />
+                ))
+            }    
+        } else {
+            return (<h1>Cargando</h1>)
+        }
     } else {
-        return (
-            <h1>Cargando</h1>)
+        return (<h1>No hay Actividades Cargadas</h1>)
     }
 }
