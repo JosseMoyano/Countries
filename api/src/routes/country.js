@@ -25,7 +25,7 @@ router.get('/', async (req, res, next) => {
             return res.json('No hay coincidencias')    
         } else {
             let paises = await Country.findAll({
-                attributes: ['bandera', 'name', 'continente', 'id',],
+                attributes: ['bandera', 'name', 'continente', 'id', 'poblacion'],
                 include: [Activity],
                 limit: 10})
             return res.json(paises)
