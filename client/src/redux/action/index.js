@@ -7,7 +7,6 @@ export const REMOVE_FAVOURITE = 'REMOVE_FAVOURITE';
 export const GET_COUNTRY_DETAIL = 'GET_COUNTRY_DETAIL';
 export const CLEAR_COUNTRY_DETAIL = 'CLEAR_COUNTRY_DETAIL';
 export const CLEAR_COUNTRIES_SEARCHED = 'CLEAR_COUNTRIES_SEARCHED';
-// export const ORDER_CONTINENTE = 'ORDER_CONTINENTE';
 export const FILTER_CONTINENT = 'FILTER_CONTINENT';
 export const CLEAR_COUNTRIES_FILTER = 'CLEAR_COUNTRIES_FILTER';
 export const GET_ACTIVITIES = 'GET_ACTIVITIES';
@@ -131,7 +130,6 @@ export const filterActivity = (activity) => {
 }
 
 export const order = (funcion) => {
-    console.log('entre a la action y me llego esto: ', funcion)
     return {
         type: ORDER,
         payload: {

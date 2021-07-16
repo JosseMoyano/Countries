@@ -165,3 +165,9 @@ export default function AddActivities (){
         </>
     )
 }
+
+/*
+Tiro un error random, habia paises ya cargados 
+La primera carga de datos da mensaje de error pero carga bien, igual habria que poner otra cosa y no esa alerta fea
+las temporadas podrian estar con input tipo radio
+*/

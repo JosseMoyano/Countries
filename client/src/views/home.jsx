@@ -200,7 +200,7 @@ export default function Home () {
                             <input type="radio" id="MenorMayor" name="poblacion" value={menorMayor} />                           
                             <label htmlFor="MenorMayor">Menor a Mayor</label>
                             <input type="radio" id="MayorMenor" name="poblacion" value={mayorMenor}/>                           
-                            <label htmlFor="MayorMenor">Mayor a MenorA</label>
+                            <label htmlFor="MayorMenor">Mayor a Menor</label>
                         </div>
                     ) : (null)
                 }
@@ -211,13 +211,13 @@ export default function Home () {
                         <SearchedCountries  searchedCountries={searchedCountries.todo} ABC={ABC} AZ={az} ZA={za} actividad={actividad} continente={continente} array='searchedCountries'  />
                     ) : firstCountries.todo  ? (
                         <FirstCountries  firstCountries={firstCountries.todo} ABC={ABC} AZ={az} ZA={za} continente={continente} array='firstCountries' actividad={actividad} />
-                    ) : (<h1>No hay paises</h1>)
+                    ) : (<h1>Cargando</h1>)
                 ) : (
                     searchedCountries.actual   ? (
                         <SearchedCountries searchedCountries={searchedCountries.actual} actividad={actividad} continente={continente} array='searchedCountries'  />
                     ) : firstCountries.actual  ? (
                         <FirstCountries firstCountries={firstCountries.actual} continente={continente} array='firstCountries' actividad={actividad} />
-                    ) : (<h1>No hay paises</h1>)
+                    ) : (<h1>Cargando</h1>)
                 )
             }
         </>
@@ -226,9 +226,6 @@ export default function Home () {
 
 /*
 1. falta implementar el tip de Diego
-2. Falta dar funcionalidad a los botones de filtros
-3. boton de quitar filtros
-
-Puedo usar dispatchs para los ordenamientos AZ ZA Poblacion, 
-y un dispatch para cuando las opciones de ordenamiento esten en false vuelvan a cargar desde la base de datos 
+en first funciona cuando un filtro se desactiva que renderize como estaba antes 
+en serched no funciona con abc y poblacion sobre los serched sin filtro de continente
 */

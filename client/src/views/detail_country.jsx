@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+// import { NavLink } from 'react-router-dom';
 import PaisDetail from '../components/pais_detail';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,15 +22,15 @@ export default function DetailCountry (props) {
             { countriesDetail ? (
                 <>
                     <h1>BIENVENIDOS A {countriesDetail.name}</h1>
-                    <ul>
+                    {/* <ul>
                         <li>
-                            <button onClick={{/* añadir a favorito */}}>Favorito</button>
+                            <button>Favorito</button>
                             <NavLink to='/perfil'>Mi Perfil</NavLink>
                             <NavLink to='/'>Home</NavLink>
                             <NavLink to='/activities'>Actividades</NavLink>
-                            <button onClick={{/* cerrar sesion */}}>Salir</button>                    
+                            <button>Salir</button>                    
                         </li>
-                    </ul>
+                    </ul> */}
                     <PaisDetail countriesDetail={countriesDetail} /> 
             </>
             ) : countriesDetail === undefined  ? (

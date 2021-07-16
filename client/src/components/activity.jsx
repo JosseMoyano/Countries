@@ -15,8 +15,8 @@ export default function Activity (props) {
                 ))
             }            
             <p>temporada: {props.temporada}</p>
-            <p>duracion: {props.duracion}</p>
-            <p>dificultad: {props.dificultad}</p>
+            <p>duracion: {props.duracion} minutos</p>
+            <p>dificultad: {props.dificultad} de 5</p>
         </div>
     )
 }

@@ -91,11 +91,16 @@ export default function reducer (state = initialState, action){
         case FILTER_CONTINENT:
             return {
                 ...state,
-                countriesFilter:{
-                    ...state.countriesFilter,                    
-                    [action.payload.continente]: state[action.payload.array].todo.filter(country => country.continente === action.payload.continente),
-                }
+                countriesFilter: state[action.payload.array].todo.filter(country => country.continente === action.payload.continente),
+                
         }
+        //     return {
+        //         ...state,
+        //         countriesFilter:{
+        //             ...state.countriesFilter,                    
+        //             [action.payload.continente]: state[action.payload.array].todo.filter(country => country.continente === action.payload.continente),
+        //         }
+        // }
         case FILTER_ACTIVITY:
             return {
                 ...state,
@@ -148,7 +153,8 @@ export default function reducer (state = initialState, action){
                     ...state.firstCountries,
                     actual: [...state.firstCountries.actual],
                     todo: state.firstCountries.todo?.sort(action.payload.funcion)
-                }
+                }, 
+                countriesFilter: state.countriesFilter?.sort(action.payload.funcion)
                 
             }
         

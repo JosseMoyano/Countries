@@ -24,3 +24,7 @@ export default function FirstCountries (props) {
             <h1>Cargando</h1>)
     }
 }
+
+/*
+Yo pondria en este componente los efectos de ABC y Poblacion y haria lo mismo en searched_countries
+*/

@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import Pais from './pais';
 import { useDispatch, useSelector } from 'react-redux'
-import { filterContinent } from '../redux/action';
+import { filterContinent, order } from '../redux/action';
+import { orderByAZ, orderByZA } from '../utils';
 
 export default function Filtro (props) {
     
@@ -10,16 +11,28 @@ export default function Filtro (props) {
 
     useEffect(() => {
         dispatch(filterContinent(props.array, props.continente))
-    }, [ props.AZ, props.ZA, dispatch, props.array, props.continente, props.countries]) 
+    }, [dispatch, props.array, props.continente, props.countries]) 
+
+    useEffect(()=>{
+        if(props.AZ || props.ZA){
+            if(countriesFilter/* [props.continente] */?.length > 0){
+                if(props.AZ === true) return dispatch(order(orderByAZ))
+                if(props.ZA === true) return dispatch(order(orderByZA))
+            }
+        }
+    },[countriesFilter, dispatch, props.AZ, props.ZA/* , props.continente */])
+
+    console.log('countriesFilter: ',countriesFilter)
+    console.log('countriesFilter?.length: ',countriesFilter?.length)
         
     if(props.countries?.length > 0){
         if(countriesFilter){
-            if (countriesFilter[props.continente]?.length === 0){   
+            if (countriesFilter/* [props.continente] */?.length === 0){   
                 return (
                     <h1>No hay paises que coincidan con el filtro</h1>
                     ) 
-            } else if (countriesFilter[props.continente]?.length > 0) {
-                return countriesFilter[props.continente]?.map(country => (
+            } else if (countriesFilter/* [props.continente] */?.length > 0) {
+                return countriesFilter/* [props.continente] */?.map(country => (
                     <Pais key={country.id} name={country.name} bandera={country.bandera} continente={country.continente} id={country.id} />
                     ))
             } else {
@@ -34,3 +47,7 @@ export default function Filtro (props) {
         return <h1>No se encontro ningun país</h1>
     }
 }
+
+/*
+Cuando se desactivan los filtros no vuelven a la normalidad, habria que arreglar esa parte 
+*/
