@@ -22,17 +22,8 @@ export default function DetailCountry (props) {
             { countriesDetail ? (
                 <>
                     <h1>BIENVENIDOS A {countriesDetail.name}</h1>
-                    {/* <ul>
-                        <li>
-                            <button>Favorito</button>
-                            <NavLink to='/perfil'>Mi Perfil</NavLink>
-                            <NavLink to='/'>Home</NavLink>
-                            <NavLink to='/activities'>Actividades</NavLink>
-                            <button>Salir</button>                    
-                        </li>
-                    </ul> */}
                     <PaisDetail countriesDetail={countriesDetail} /> 
-            </>
+                </>
             ) : countriesDetail === undefined  ? (
                 <h1>Cargando...</h1>
             ) : (

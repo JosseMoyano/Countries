@@ -74,7 +74,7 @@ export const clearPage = () => {
 export const clearCountriesSearched = () => {
     return {
         type: CLEAR_COUNTRIES_SEARCHED,
-        payload: undefined
+        payload: []
     }
 }
 

@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import FirstCountries from '../components/first_countries';
 import SearchedCountries from '../components/searched_countries';
-import { getCountry, searchCountries, clearCountriesSearched, getActivities, order, } from '../redux/action';
-import { orderByAZ, orderByZA, orderMayorMenor, orderMenorMayor } from '../utils';
+import { getCountry, searchCountries, clearCountriesSearched, getActivities/* , order,  */} from '../redux/action';
+// import { orderByAZ, orderByZA, orderMayorMenor, orderMenorMayor } from '../utils';
 
 export default function Home () {
     
@@ -37,8 +37,8 @@ export default function Home () {
     useEffect(() => {
         dispatch(getCountry());
         dispatch(getActivities())
-        return dispatch(clearCountriesSearched())
-    },[dispatch])    
+        return () => dispatch(clearCountriesSearched())          
+    },[dispatch]) 
 
     // Efectos para los filtros de Continente y Actividad
     useEffect(()=>{
@@ -60,14 +60,6 @@ export default function Home () {
         if(ABC === true) setpoblacion(false)
     },[ABC])
 
-    useEffect(() => {
-        if(ABC === true) {
-            if(az === true) return dispatch(order(orderByAZ))
-            if(za === true) return dispatch(order(orderByZA))
-        } 
-        
-    }, [ABC, az, dispatch, za])
-
     // Efectos para los ordenamientos Poblacion
     useEffect(()=>{
         if(poblacion === false) {
@@ -77,25 +69,6 @@ export default function Home () {
         if(poblacion === true) setABC(false)
     },[poblacion])
 
-    useEffect(()=>{
-        if(poblacion === true){
-            if(menorMayor === true) return dispatch(order(orderMenorMayor))
-            if(mayorMenor === true) return dispatch(order(orderMayorMenor))
-        }
-    },[dispatch, mayorMenor, menorMayor, poblacion])
-   
-    
-
-    // useEffect(()=>{
-    //     setABC(false)
-    // },[poblacion])
-
-    //Un efecto para que cuando cambie de continente, el ABC quede en false. Buenardo!
-    // useEffect(()=>{
-    //     setABC(false)
-    // },[continente])
-
-
     const onChange = (e) => {
         if(e.target.name === 'Buscar') setCountry(e.target.value);
         if(e.target.name === 'Continente'){ 
@@ -104,16 +77,13 @@ export default function Home () {
         if(e.target.name === 'actividad'){
             if(e.target.checked === true) setActividad([e.target.value]) 
             if(e.target.checked === false) setActividad(actividad.filter(actividad => actividad !== e.target.value)) } 
-        if(e.target.name === 'ABC'){             
+        if(e.target.name === 'ABC'){ 
             if(e.target.id === "AZ"){
                 setAz(true)  
-                setZa(false)
-            }
+                setZa(false)}
             if(e.target.id === "ZA"){
                 setAz(false)  
-                setZa(true)
-            }
-        }
+                setZa(true)}}
         if(e.target.name === 'poblacion'){
             if(e.target.id === 'MenorMayor'){
                 setMenorMayor(true)
@@ -130,9 +100,7 @@ export default function Home () {
         e.preventDefault();
         if(e.target.name === 'Buscar') {
             dispatch(searchCountries(country))
-            setCountry("")
-            setABC(false)
-        }
+            setCountry("")}
         if(e.target.name === 'Actividad') setActividades(!actividades)            
         if(e.target.name === 'Continente') setContinentes(!continentes)
         if(e.target.name === 'ABC') setABC(!ABC)
@@ -149,7 +117,6 @@ export default function Home () {
                 </div>
             </header>
             <div>
-                {/* cada button tiene una funcionalidad de filtro diferente que hay que aplicar */}
                 <button onClick={onClick} name='Continente' value={continentes} >CONTINENTE</button >
                 {
                     continentes === true ? (
@@ -175,8 +142,8 @@ export default function Home () {
                         activities.length > 0 ? (
                             activities?.map(a => (
                                 <div key={a.id} onChange={onChange}  >
-                                <input type='radio' id={a.name} value={a.id} name='actividad' />
-                                <label>{a.name}</label>
+                                    <input type='radio' id={a.name} value={a.id} name='actividad' />
+                                    <label>{a.name}</label>
                                 </div>
                             ))
                         ) : (<h1>No hay actividades para Mostrar, primero crealas aqui: <NavLink to='/activities/add'>Add Activities</NavLink></h1>)
@@ -206,19 +173,20 @@ export default function Home () {
                 }
             </div>
             {
-                ABC === true || poblacion === true ? (
-                    searchedCountries.todo   ? (
-                        <SearchedCountries  searchedCountries={searchedCountries.todo} ABC={ABC} AZ={az} ZA={za} actividad={actividad} continente={continente} array='searchedCountries'  />
-                    ) : firstCountries.todo  ? (
-                        <FirstCountries  firstCountries={firstCountries.todo} ABC={ABC} AZ={az} ZA={za} continente={continente} array='firstCountries' actividad={actividad} />
+                (ABC === true || poblacion === true ) ? (
+                    searchedCountries.todo?.length > 0   ? (
+                        <SearchedCountries searchedCountries={searchedCountries.todo} poblacion={poblacion} menorMayor={menorMayor} mayorMenor={mayorMenor} ABC={ABC} AZ={az} ZA={za} actividad={actividad} continente={continente} array='searchedCountries'  />
+                    ) : firstCountries.todo?.length > 0   ? (
+                        <FirstCountries  firstCountries={firstCountries.todo} poblacion={poblacion} menorMayor={menorMayor} mayorMenor={mayorMenor} ABC={ABC} AZ={az} ZA={za} actividad={actividad} continente={continente} array='firstCountries'  />
                     ) : (<h1>Cargando</h1>)
-                ) : (
-                    searchedCountries.actual   ? (
-                        <SearchedCountries searchedCountries={searchedCountries.actual} actividad={actividad} continente={continente} array='searchedCountries'  />
-                    ) : firstCountries.actual  ? (
-                        <FirstCountries firstCountries={firstCountries.actual} continente={continente} array='firstCountries' actividad={actividad} />
+
+                ) : (!ABC && !poblacion) ? (
+                    searchedCountries.actual?.length > 0 ? (
+                        <SearchedCountries  searchedCountries={searchedCountries.actual} actividad={actividad} continente={continente} array='searchedCountries'  />
+                    ) : firstCountries.actual?.length > 0   ? (
+                        <FirstCountries  firstCountries={firstCountries.actual} continente={continente} array='firstCountries' actividad={actividad} />
                     ) : (<h1>Cargando</h1>)
-                )
+                ) : (null) 
             }
         </>
     )
@@ -226,6 +194,5 @@ export default function Home () {
 
 /*
 1. falta implementar el tip de Diego
-en first funciona cuando un filtro se desactiva que renderize como estaba antes 
-en serched no funciona con abc y poblacion sobre los serched sin filtro de continente
+Se podria arreglar para que cuando cambie de continente teniendo activos los ordenamientos, los repeste.
 */
