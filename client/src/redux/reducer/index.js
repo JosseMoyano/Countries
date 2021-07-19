@@ -1,4 +1,4 @@
-import { GET_COUNTRY, SEARCH_COUNTRIES, ADD_FAVOURITE, REMOVE_FAVOURITE, GET_COUNTRY_DETAIL, CLEAR_COUNTRY_DETAIL, CLEAR_COUNTRIES_SEARCHED, FILTER_CONTINENT, CLEAR_COUNTRIES_FILTER, GET_ACTIVITIES, ADD_FAVOURITE_ACTIVITY, ADD_ACTIVITY, FILTER_ACTIVITY, ORDER } from '../action';
+import { GET_COUNTRY, SEARCH_COUNTRIES, ADD_FAVOURITE, REMOVE_FAVOURITE, GET_COUNTRY_DETAIL, CLEAR_COUNTRY_DETAIL, CLEAR_COUNTRIES_SEARCHED, FILTER_CONTINENT, CLEAR_COUNTRIES_FILTER, GET_ACTIVITIES, ADD_FAVOURITE_ACTIVITY, FILTER_ACTIVITY, ORDER, POST_ACTIVITY, REMOVE_FAVOURITE_ACTIVITY, SEARCH_COUNTRIES_PREV, CLEAR_COUNTRIES_PREV, GET_ACTIVITY_DETAIL } from '../action';
 
 const initialState = {
     firstCountries :{
@@ -9,21 +9,23 @@ const initialState = {
         todo: [],
         actual: []
     },
-    countriesFavorites: {
-        todo: [],
-        actual: []
-    },
+    prevCountries : [],
+    countriesDetail: undefined,    
     activities: {
         todo: [],
         actual: []
     },
+    countriesFavorites: {
+        todo: [],
+        actual: []
+    },
+    activitiesFavourite: [],
     countriesFilter: {
         todo: [],
         actual:[]
     },
     countriesFilterByActivity: undefined,
-    countriesDetail: undefined,    
-    activitiesFavourite: []
+    activityDetail: []
     
 }
 
@@ -46,8 +48,48 @@ export default function reducer (state = initialState, action){
                     ...state.searchedCountries,
                     todo: action.payload,
                     actual: action.payload,
-                    }
+                    },
                 } 
+
+        case SEARCH_COUNTRIES_PREV:
+            return {
+                ...state,
+                prevCountries : action.payload.slice(0,11)
+            } 
+
+        case GET_COUNTRY_DETAIL:
+            return {
+                ...state,
+                countriesDetail: action.payload
+            }
+
+        case POST_ACTIVITY:
+            return{
+                ...state,
+                activities:{
+                    ...state.activities,
+                    todo: [...state.activities.todo, action.payload],
+                    actual: [...state.activities.todo, action.payload]
+                }
+            }
+
+        case GET_ACTIVITIES:
+            return {
+                ...state,
+                activities:{
+                    ...state.activities,
+                    todo: action.payload,
+                    actual: action.payload,
+                } 
+            }
+
+        case GET_ACTIVITY_DETAIL:
+            return {
+                ...state,
+                activityDetail: state.activities.actual?.filter(a => a.id === action.payload)
+            }
+
+    //------------------------------------------------
 
         case ADD_FAVOURITE:
             return {
@@ -68,12 +110,20 @@ export default function reducer (state = initialState, action){
                     actual: state.countriesFavorites.todo.filter(c => c.id !== action.payload)
                 } 
             }
-
-        case GET_COUNTRY_DETAIL:
+        
+        case ADD_FAVOURITE_ACTIVITY:
             return {
                 ...state,
-                countriesDetail: action.payload
+                activitiesFavourite: [...state.activitiesFavourite, action.payload]
+        }  
+        
+        case REMOVE_FAVOURITE_ACTIVITY:
+            return{
+                ...state,
+                activitiesFavourite: state.activitiesFavourite.filter(a => a.id !== action.payload)
             }
+
+    //------------------------------------------------    
 
         case CLEAR_COUNTRY_DETAIL:
             return{
@@ -91,25 +141,6 @@ export default function reducer (state = initialState, action){
                     }
                 }    
 
-        case FILTER_CONTINENT:
-            return {
-                
-                ...state,
-                countriesFilter:{
-                    ...state.countriesFilter,
-                    todo: state[action.payload.array].actual.filter(country => country.continente === action.payload.continente),
-                    actual: state[action.payload.array].actual.filter(country => country.continente === action.payload.continente),
-                } 
-                
-        }
-        
-        case FILTER_ACTIVITY:
-            return {
-                ...state,
-                countriesFilterByActivity: state.activities?.todo.filter(actividad => actividad.id === action.payload.activity),
-                
-        }
-
         case CLEAR_COUNTRIES_FILTER:
             return {
                 ...state,
@@ -118,33 +149,29 @@ export default function reducer (state = initialState, action){
                     actual: action.payload
                 }
             }
-
-        case GET_ACTIVITIES:
+        case CLEAR_COUNTRIES_PREV:
             return {
                 ...state,
-                activities:{
-                    ...state.activities,
-                    todo: action.payload,
-                    actual: action.payload,
+               prevCountries: action.payload
+            }
+
+    //------------------------------------------------        
+
+        case FILTER_CONTINENT:
+            return {
+                ...state,
+                countriesFilter:{
+                    ...state.countriesFilter,
+                    todo: state[action.payload.array].actual.filter(country => country.continente === action.payload.continente),
+                    actual: state[action.payload.array].actual.filter(country => country.continente === action.payload.continente),
                 } 
-            }
-
-        case ADD_ACTIVITY:
+        }
+        
+        case FILTER_ACTIVITY:
             return {
                 ...state,
-                activities:{
-                    ...state.activities,
-                    todo: [...state.activities.todo, action.payload],
-                    actual: [...state.activities.todo, action.payload]
-                } 
-            }
-            
-
-        case ADD_FAVOURITE_ACTIVITY:
-            return {
-                ...state,
-                activitiesFavourite: [...state.activitiesFavourite, action.payload]
-            }
+                countriesFilterByActivity: state.activities?.todo.filter(actividad => actividad.id === action.payload.activity),
+        }
 
         case ORDER:
             return {
@@ -152,19 +179,18 @@ export default function reducer (state = initialState, action){
                 searchedCountries:{
                     ...state.searchedCountries,
                     actual: state.searchedCountries.actual ? [...state.searchedCountries.actual] : [],
-                    todo: state.searchedCountries.todo?.sort(action.payload.funcion)
+                    todo: state.searchedCountries.todo?.sort(action.payload.orderFunction)
                 },
                 firstCountries:{
                     ...state.firstCountries,
                     actual: [...state.firstCountries.actual],
-                    todo: state.firstCountries.todo?.sort(action.payload.funcion)
+                    todo: state.firstCountries.todo?.sort(action.payload.orderFunction)
                 }, 
                 countriesFilter:{
                     ...state.countriesFilter,
                     actual:[...state.countriesFilter.actual],
-                    todo: state.countriesFilter?.todo?.sort(action.payload.funcion)
+                    todo: state.countriesFilter?.todo?.sort(action.payload.orderFunction)
                 } 
-                
             }
         
         default:

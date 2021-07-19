@@ -11,6 +11,7 @@ import Activities from './views/activities';
 import AddActivities from './views/add_activities';
 import Nav from './views/nav';
 import ShowActivities from './views/show_activities';
+import DetailActivity from './views/detail_activity';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
     <Route path='/activities/add' component={AddActivities} />
     <Route path='/activities/show' component={ShowActivities} />
     <Route exact path='/countries/:id' component={DetailCountry} />
+    <Route exact path='/activity/:id' component={DetailActivity} />
     </>
   );
 }

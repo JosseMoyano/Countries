@@ -1,12 +1,32 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { addFavouriteActivity } from '../redux/action';
 
-export default function Activity (props) {     
+export default function Activity (props) {   
+    
+    const {name, id, countries, temporada, duracion, dificultad, onClick, remove} = props;
+
+    const dispatch = useDispatch()
+
+    const onClick2 = () => {
+        if(!remove){
+        dispatch(addFavouriteActivity({ name, id, countries, temporada, duracion, dificultad}))
+    } }
 
     return (
-        <div key={props.id}>
-            <button onClick={() => props.onClick(props.name, props.id, props.countries, props.temporada, props.duracion, props.dificultad )}>corazon</button>
-            <h1>{props.name}</h1>
+        <div key={id}>
+            {
+                !remove ? (
+                    <button onClick={() => onClick2()}>corazon</button>
+                ) : (null)
+            }
+            {
+                remove ? (
+                    <button onClick={onClick}>X</button>
+                ):(null)
+            }
+            <h1>{name}</h1>
             {
                 props.countries?.map(country => (
                     <div key={country.id}>
@@ -14,9 +34,9 @@ export default function Activity (props) {
                     </div>
                 ))
             }            
-            <p>temporada: {props.temporada}</p>
-            <p>duracion: {props.duracion} minutos</p>
-            <p>dificultad: {props.dificultad} de 5</p>
+            <p>Temporada: {temporada}</p>
+            <p>Duración: {duracion} minutos</p>
+            <p>Dificultad: {dificultad} de 5</p>
         </div>
     )
 }

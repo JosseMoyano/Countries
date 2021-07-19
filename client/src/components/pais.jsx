@@ -5,25 +5,30 @@ import { NavLink } from 'react-router-dom';
 
 export default function Pais (props){
 
-    const dispatch = useDispatch();
+    const {name, bandera, continente, id, remove, onClick} = props;
 
-    const handleOnClick = () => {
-        dispatch(addFavourite({
-            name:props.name,
-            bandera: props.bandera,
-            continente: props.continente,
-            id: props.id
-        }));
-    }
+    const dispatch = useDispatch();
+    
+    const onClick2 = () => {
+        if(!remove){
+        dispatch(addFavourite({name, bandera, continente, id}));
+    }}
 
     return (
         <div>
-            <div>
-                <button onClick={handleOnClick}>corazon</button>
-            </div>
-            <img src={props.bandera} alt={props.name} />
-            <NavLink to={`/countries/${props.id}`}><h2>{props.name}</h2></NavLink>
-            <h2>{props.continente}</h2>
+            {
+                !remove ? (
+                    <button onClick={onClick2}>corazon</button>
+                    ) : (null)
+            }
+            {
+                remove ? (
+                    <button onClick={onClick}>x</button>
+                ) : (null)
+            }
+            <img src={bandera} alt={name} />
+            <NavLink to={`/countries/${id}`}><h2>{name}</h2></NavLink>
+            <h2>{continente}</h2>
         </div>
     )
 }

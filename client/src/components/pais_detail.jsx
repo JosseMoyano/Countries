@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 export default function PaisDetail({countriesDetail}){
 
@@ -11,13 +12,13 @@ export default function PaisDetail({countriesDetail}){
             <h1>Subregión: {countriesDetail.subregion}</h1>
             <h1>Área: {countriesDetail.area}</h1>
             <h1>Población: {countriesDetail.poblacion}</h1>
-            {   countriesDetail.activities.length > 0 ? (<h1>Actividades: 
+            {   countriesDetail.activities?.length > 0 ? (<h1>Actividades: 
                     {
                         countriesDetail.activities?.length > 0 ? (
                             countriesDetail.activities.map(a => (
                                 <div key={a.id}>
                                     <ul>
-                                        <li>{a.name}</li>
+                                        <NavLink to={`/activity/${a.id}`}><li>{a.name}</li></NavLink>
                                     </ul>
                                 </div>
                             ))

@@ -1,12 +1,11 @@
 import React from 'react';
-// import { NavLink } from 'react-router-dom';
 import PaisDetail from '../components/pais_detail';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { getCountryDetail, clearPage } from '../redux/action';
+import { getCountryDetail, clearCountryDetail } from '../redux/action';
 
-export default function DetailCountry (props) {
+export default function DetailCountry () {
 
     const { id } = useParams()
     const dispatch = useDispatch();
@@ -14,7 +13,7 @@ export default function DetailCountry (props) {
 
     useEffect( ()=>{
         dispatch(getCountryDetail(id))
-        return () => dispatch(clearPage())
+        return () => dispatch(clearCountryDetail())
     },[id, dispatch])
 
     return (
@@ -34,8 +33,3 @@ export default function DetailCountry (props) {
     )
 }
 
-/*
-1.Tengo que tener un estado global de los detalles de pais y traerlo
-2. el dispatch se hace en el useeffect
-3.
-*/

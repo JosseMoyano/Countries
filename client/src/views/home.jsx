@@ -3,18 +3,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import FirstCountries from '../components/first_countries';
 import SearchedCountries from '../components/searched_countries';
-import { getCountry, searchCountries, clearCountriesSearched, getActivities/* , order,  */} from '../redux/action';
-// import { orderByAZ, orderByZA, orderMayorMenor, orderMenorMayor } from '../utils';
+import { getCountry, searchCountries,  clearCountriesSearched, getActivities } from '../redux/action';
 
 export default function Home () {
     
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
-    const firstCountries = useSelector( state => state.firstCountries); // => Los primeros 10 paises
-    const searchedCountries = useSelector( state => state.searchedCountries); // => Los paises de Busqueda
-    const activities = useSelector( state => state.activities.todo); // => actividades
+    const firstCountries = useSelector( state => state.firstCountries); 
+    const searchedCountries = useSelector( state => state.searchedCountries); 
+    // const prevCountries = useSelector( state => state.prevCountries); 
+    const activities = useSelector( state => state.activities.todo); 
 
-    const [ country, setCountry ] = useState(""); 
+    const [ country, setCountry ] = useState(''); 
+    const continents = ['Americas', 'Europe', 'Africa', 'Asia', 'Oceania', 'Polar'];
     
     //Ordenamiento por Poblacion
     const [ poblacion, setpoblacion ] = useState(false); 
@@ -25,115 +26,103 @@ export default function Home () {
     const [ ABC, setABC ] = useState(false); 
     const [ az, setAz] = useState(false); 
     const [ za, setZa] = useState(false); 
-    
+
     //filtros de Continente
-   const [ continentes, setContinentes ] = useState(false)
+   const [ continentes, setContinentes ] = useState(false);
    const [ continente, setcontinente ] = useState(undefined); 
 
     //filtros de actividad
-    const [ actividades, setActividades ] = useState(false); // => activa y desactiva el boton
-    const [ actividad, setActividad ] = useState([]); // => guardo las id. actividades
+    const [ actividades, setActividades ] = useState(false); 
+    const [ actividad, setActividad ] = useState([]); 
 
     useEffect(() => {
         dispatch(getCountry());
-        dispatch(getActivities())
-        return () => dispatch(clearCountriesSearched())          
-    },[dispatch]) 
+        dispatch(getActivities());
+        return () => dispatch(clearCountriesSearched());       
+    },[dispatch]);
+
+    useEffect(() => {
+       if(country !== '')dispatch(searchCountries(country))
+    },[country, dispatch])
 
     // Efectos para los filtros de Continente y Actividad
     useEffect(()=>{
-        if(actividades === false) setActividad([])
-        if(actividades === true) setContinentes(false)
-    },[actividades])
+        if(actividades === false) setActividad([]);
+        if(actividades === true) setContinentes(false);
+    },[actividades]);
 
     useEffect(()=>{
-        if(continentes === false) setcontinente(undefined)
-        if(continentes === true) setActividades(false)
-    },[continentes])
+        if(continentes === false) setcontinente(undefined);
+        if(continentes === true) setActividades(false);
+    },[continentes]);
 
     // Efectos para los ordenamientos ABC
     useEffect(()=>{
         if(ABC === false) {
-            setAz(false)  
-            setZa(false)
-        }
-        if(ABC === true) setpoblacion(false)
-    },[ABC])
+            setAz(false);  
+            setZa(false)};
+        if(ABC === true) setpoblacion(false);
+    },[ABC]);
 
     // Efectos para los ordenamientos Poblacion
     useEffect(()=>{
         if(poblacion === false) {
-            setMenorMayor(false)  
-            setMayorMenor(false)
-        }
-        if(poblacion === true) setABC(false)
-    },[poblacion])
+            setMenorMayor(false);  
+            setMayorMenor(false)};
+        if(poblacion === true) setABC(false);
+    },[poblacion]);
 
+    // Funciones para los inputs y botones
     const onChange = (e) => {
-        if(e.target.name === 'Buscar') setCountry(e.target.value);
-        if(e.target.name === 'Continente'){ 
-            if(continentes === true) setcontinente(e.target.value);
-            if(continentes === false) e.target.checked = false }
-        if(e.target.name === 'actividad'){
-            if(e.target.checked === true) setActividad([e.target.value]) 
-            if(e.target.checked === false) setActividad(actividad.filter(actividad => actividad !== e.target.value)) } 
+        if(e.target.name === 'Buscar') setCountry(e.target.value)
+        if(e.target.name === 'Continente') continentes ? setcontinente(e.target.value) : e.target.checked = false ;
+        if(e.target.name === 'actividad') e.target.checked ? setActividad([e.target.value]) : setActividad(actividad.filter(a => a !== e.target.value));
         if(e.target.name === 'ABC'){ 
             if(e.target.id === "AZ"){
-                setAz(true)  
-                setZa(false)}
+                setAz(true);  
+                setZa(false)};
             if(e.target.id === "ZA"){
-                setAz(false)  
-                setZa(true)}}
+                setAz(false);  
+                setZa(true)}};
         if(e.target.name === 'poblacion'){
             if(e.target.id === 'MenorMayor'){
-                setMenorMayor(true)
-                setMayorMenor(false)
-            }
+                setMenorMayor(true);
+                setMayorMenor(false)};
             if(e.target.id === 'MayorMenor'){
-                setMenorMayor(false)
-                setMayorMenor(true)
-            }
-        }
-    }
+                setMenorMayor(false);
+                setMayorMenor(true)}};
+    };
 
     const onClick = (e) => {
         e.preventDefault();
-        if(e.target.name === 'Buscar') {
+        if(e.target.name === 'Buscar'){
             dispatch(searchCountries(country))
-            setCountry("")}
-        if(e.target.name === 'Actividad') setActividades(!actividades)            
-        if(e.target.name === 'Continente') setContinentes(!continentes)
-        if(e.target.name === 'ABC') setABC(!ABC)
-        if(e.target.name === 'poblacion') setpoblacion(!poblacion)
-    }
+             setCountry('') };
+        if(e.target.name === 'Actividad') setActividades(!actividades);           
+        if(e.target.name === 'Continente') setContinentes(!continentes);
+        if(e.target.name === 'ABC') setABC(!ABC);
+        if(e.target.name === 'poblacion') setpoblacion(!poblacion);
+    };
 
     return (
         <>
             <header>                
                 <div>
-                   {/* hay que agregar la funcionalidad que me vaya mostrando los paises  que coinciden con lo que se va escribiendo en el imput (Diego lo hizo     en una HW) */}
                     <input type='text' name='Buscar' placeholder='Escribi aqui el País que deseas encontrar' onChange={onChange} value={country} />
                     <button name='Buscar' onClick={(e) => onClick(e)}>Buscar</button>
                 </div>
+                
             </header>
             <div>
                 <button onClick={onClick} name='Continente' value={continentes} >CONTINENTE</button >
                 {
                     continentes === true ? (
-                        <div onChange={onChange}> 
-                            <input type="radio" id="Americas" name="Continente" value='Americas'/>                           
-                            <label htmlFor="Americas">America</label>
-                            <input type="radio" id="Europe" name="Continente" value='Europe' />
-                            <label htmlFor="Europe">Europa</label>
-                            <input type="radio" id="Africa" name="Continente" value='Africa'   />
-                            <label htmlFor="Africa">Africa</label>
-                            <input type="radio" id="Asia" name="Continente" value='Asia'  />
-                            <label htmlFor="Asia">Asia</label>
-                            <input type="radio" id="Oceania" name="Continente" value='Oceania'   />
-                            <label htmlFor="Oceania">Oceania</label>
-                            <input type="radio" id="Polar" name="Continente" value='Polar'   />
-                            <label htmlFor="Polar">Antartida</label>
-                        </div>
+                        continents.map(c => (
+                            <div onChange={onChange} key={c}>
+                                <input type="radio" id={c} name="Continente" value={c}/>                           
+                                <label htmlFor={c}>{c}</label>
+                            </div>
+                        ))
                     ) : (null)
                 }
                 <button onClick={onClick} value={actividades} name='Actividad'>ACTIVIDADES</button>                
@@ -185,6 +174,8 @@ export default function Home () {
                         <SearchedCountries  searchedCountries={searchedCountries.actual} actividad={actividad} continente={continente} array='searchedCountries'  />
                     ) : firstCountries.actual?.length > 0   ? (
                         <FirstCountries  firstCountries={firstCountries.actual} continente={continente} array='firstCountries' actividad={actividad} />
+                    ) : searchedCountries.actual?.length === 0 ? (
+                        <h1>No se encontró el pais</h1>
                     ) : (<h1>Cargando</h1>)
                 ) : (null) 
             }
@@ -193,6 +184,6 @@ export default function Home () {
 }
 
 /*
-1. falta implementar el tip de Diego
-Se podria arreglar para que cuando cambie de continente teniendo activos los ordenamientos, los repeste.
+Por alguna razon, el activityDetail no funca... pero primero hace los estilos!! 
 */
+

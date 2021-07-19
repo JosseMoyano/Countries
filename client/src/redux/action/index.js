@@ -1,17 +1,25 @@
 import fetch from "node-fetch";
+import { GETACTIVITIES, GETCOUNTRIES, POSTACTIVITIES, SEARCHCOUNTRIES } from "../../utils/constantes";
 
 export const GET_COUNTRY = 'GET COUNTRY';
 export const SEARCH_COUNTRIES = 'SEARCH COUNTRIES';
+export const SEARCH_COUNTRIES_PREV = 'SEARCH_COUNTRIES_PREV';
+export const GET_COUNTRY_DETAIL = 'GET_COUNTRY_DETAIL';
+export const POST_ACTIVITY = 'POST_ACTIVITY';
+export const GET_ACTIVITIES = 'GET_ACTIVITIES';
+export const GET_ACTIVITY_DETAIL = 'GET_ACTIVITY_DETAIL';
+
 export const ADD_FAVOURITE = 'ADD_FAVOURITE';
 export const REMOVE_FAVOURITE = 'REMOVE_FAVOURITE';
-export const GET_COUNTRY_DETAIL = 'GET_COUNTRY_DETAIL';
+export const ADD_FAVOURITE_ACTIVITY = 'ADD_FAVOURITE_ACTIVITY';
+export const REMOVE_FAVOURITE_ACTIVITY = 'REMOVE_FAVOURITE_ACTIVITY'; // => NO LA USE TODAVIA, NO ESTA CREADA LA ACCION
+
 export const CLEAR_COUNTRY_DETAIL = 'CLEAR_COUNTRY_DETAIL';
 export const CLEAR_COUNTRIES_SEARCHED = 'CLEAR_COUNTRIES_SEARCHED';
-export const FILTER_CONTINENT = 'FILTER_CONTINENT';
 export const CLEAR_COUNTRIES_FILTER = 'CLEAR_COUNTRIES_FILTER';
-export const GET_ACTIVITIES = 'GET_ACTIVITIES';
-export const ADD_FAVOURITE_ACTIVITY = 'ADD_FAVOURITE_ACTIVITY';
-export const ADD_ACTIVITY = 'ADD_ACTIVITY';
+export const CLEAR_COUNTRIES_PREV = 'CLEAR_COUNTRIES_PREV';
+
+export const FILTER_CONTINENT = 'FILTER_CONTINENT';
 export const FILTER_ACTIVITY = 'FILTER_ACTIVITY';
 export const ORDER = 'ORDER';
 
@@ -19,25 +27,108 @@ export const ORDER = 'ORDER';
 
 export const getCountry = () => {
     return async dispatch => {
-        const response = await fetch('http://localhost:3001/countries');
-        const json = await response.json();
-        dispatch({
-            type: GET_COUNTRY,
-            payload: json
-        });
+        try {
+            const response = await fetch(GETCOUNTRIES);
+            const json = await response.json();
+            dispatch({
+                type: GET_COUNTRY,
+                payload: json
+            });            
+        } catch (error) {
+            console.error(error)
+        }
     }
 }
 
 export const searchCountries = (name) => {
     return async dispatch => {
-        const response = await fetch(`http://localhost:3001/countries?name=${name}`);
-        const json = await response.json();
-        dispatch({
-            type: SEARCH_COUNTRIES,
-            payload: json
-        });
+        try {
+            const response = await fetch(`${SEARCHCOUNTRIES}${name}`);
+            const json = await response.json();
+            dispatch({
+                type: SEARCH_COUNTRIES,
+                payload: json
+            });            
+        } catch (error) {
+            console.error(error)
+        }
     }
 }
+
+export const searchPrevCountries = (name) => {
+    return async dispatch => {
+        try {
+            const response = await fetch(`${SEARCHCOUNTRIES}${name}`);
+            const json = await response.json();
+            dispatch({
+                type: SEARCH_COUNTRIES_PREV,
+                payload: json
+            });            
+        } catch (error) {
+            console.error(error)
+        }
+    }
+}
+
+
+export const getCountryDetail = (id) => {
+    return async dispatch => {
+        try {
+            const response = await fetch(`${GETCOUNTRIES}/${id}`);
+            const json = await response.json();
+            dispatch({
+                type: GET_COUNTRY_DETAIL,
+                payload: json
+            });
+        } catch (error) {
+            console.error(error)
+        }
+    }
+}
+
+export const postActivity = (actividad) => {
+    return async dispatch => {
+        try {
+            const response = await fetch(POSTACTIVITIES, {
+                    method: 'post',
+                    body: JSON.stringify(actividad),
+                    headers: { 'Content-Type': 'application/json' },
+                })
+            const json = await response.json()
+            dispatch({
+                type: POST_ACTIVITY,
+                payload: json
+            })        
+        } catch (error) {
+            console.error(error)
+        }
+    }
+}
+
+export const getActivities = () => {
+    return async dispatch => {
+        try {
+            const response = await fetch(GETACTIVITIES);
+             const json = await response.json();
+             dispatch({
+                 type: GET_ACTIVITIES,
+                 payload: json
+             });
+        } catch (error) {
+            console.error(error)
+        }
+     }
+}
+
+export const getActivityDetail = (id) => {
+    console.log('entre a la action y me llego: ',id)
+    return {
+        type: GET_ACTIVITY_DETAIL,
+        payload: id
+    }
+}
+
+// --------------------------------------------------
 
 export const addFavourite = (payload) => {
     return {
@@ -53,18 +144,23 @@ export const removeFavourite = (id) => {
     }
 }
 
-export const getCountryDetail = (id) => {
-    return async dispatch => {
-       const response = await fetch(`http://localhost:3001/countries/${id}`);
-        const json = await response.json();
-        dispatch({
-            type: GET_COUNTRY_DETAIL,
-            payload: json
-        });
+export const addFavouriteActivity = (payload) => {
+    return {
+        type: ADD_FAVOURITE_ACTIVITY,
+        payload
     }
 }
 
-export const clearPage = () => {
+export const removeFavouriteActivity = (id) => { // No la utilice todavia 
+    return {
+        type: REMOVE_FAVOURITE_ACTIVITY,
+        payload: id
+    }
+}
+
+//---------------------------------------------------------
+
+export const clearCountryDetail = () => {
     return {
         type: CLEAR_COUNTRY_DETAIL,
         payload: undefined
@@ -85,6 +181,15 @@ export const clearCountriesFilter = () => {
     }
 }
 
+export const clearPrevCountries = () => {
+    return {
+        type: CLEAR_COUNTRIES_PREV,
+        payload: undefined
+    }
+}
+
+// ---------------------------------------------------
+
 export const filterContinent = (array, continente) => {
     return {
         type: FILTER_CONTINENT,
@@ -92,31 +197,6 @@ export const filterContinent = (array, continente) => {
             array,
             continente
         }
-    }
-}
-
-export const getActivities = () => {
-    return async dispatch => {
-        const response = await fetch(`http://localhost:3001/activities/show`);
-         const json = await response.json();
-         dispatch({
-             type: GET_ACTIVITIES,
-             payload: json
-         });
-     }
-}
-
-export const addActivity = (payload) => {
-    return {
-        type: ADD_ACTIVITY,
-        payload
-    }
-}
-
-export const addFavouriteActivity = (payload) => {
-    return {
-        type: ADD_FAVOURITE_ACTIVITY,
-        payload
     }
 }
 
@@ -129,11 +209,11 @@ export const filterActivity = (activity) => {
     }
 }
 
-export const order = (funcion) => {
+export const order = (orderFunction) => {
     return {
         type: ORDER,
         payload: {
-            funcion
+            orderFunction
         }
     }
 }
