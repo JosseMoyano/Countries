@@ -2,6 +2,8 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { addFavourite } from '../redux/action';
 import { NavLink } from 'react-router-dom';
+import {StyledPais} from './Pais/pais'
+import { FaHeart } from 'react-icons/fa'
 
 export default function Pais (props){
 
@@ -15,21 +17,26 @@ export default function Pais (props){
     }}
 
     return (
-        <div>
+        <StyledPais>
             {
                 !remove ? (
-                    <button onClick={onClick2}>corazon</button>
+                    <div className='button_pais'> 
+                        <button className='button_corazon' onClick={onClick2}><FaHeart size={20} className='corazon'/></button>
+                    </div>
                     ) : (null)
             }
             {
                 remove ? (
-                    <button onClick={onClick}>x</button>
+                    <div className='button_pais'>
+                        <button className='button_corazon' onClick={onClick}>x</button>
+                    </div>
                 ) : (null)
             }
-            <img src={bandera} alt={name} />
-            <NavLink to={`/countries/${id}`}><h2>{name}</h2></NavLink>
-            <h2>{continente}</h2>
-        </div>
+            <img className='img_pais' src={bandera} alt={name} />
+            <div className='nombre_pais'>
+                <NavLink className='navlink' to={`/countries/${id}`}><h2 className='h2_paisycontinente'>{name} - {continente}</h2></NavLink>
+            </div>
+        </StyledPais>
     )
 }
 

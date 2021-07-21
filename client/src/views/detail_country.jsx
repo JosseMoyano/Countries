@@ -19,10 +19,7 @@ export default function DetailCountry () {
     return (
         <div>
             { countriesDetail ? (
-                <>
-                    <h1>BIENVENIDOS A {countriesDetail.name}</h1>
-                    <PaisDetail countriesDetail={countriesDetail} /> 
-                </>
+                <PaisDetail countriesDetail={countriesDetail} /> 
             ) : countriesDetail === undefined  ? (
                 <h1>Cargando...</h1>
             ) : (

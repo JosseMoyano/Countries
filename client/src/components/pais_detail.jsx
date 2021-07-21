@@ -1,32 +1,52 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
+import { StyledPaisDetalle } from '../views/Pais Detalle/pais_detalle';
+import { IoArrowBackCircle } from "react-icons/io5";
 
 export default function PaisDetail({countriesDetail}){
 
+    const history = useHistory()
+
+    const goBack = () => {
+        history.goBack()
+    }
+
     return (
-        <div> 
-            <img src={countriesDetail.bandera} alt={countriesDetail.name} />
-            <h1>{`${countriesDetail.name} ${countriesDetail.id}`}</h1>
-            <h1>Continente: {countriesDetail.continente}</h1>
-            <h1>Capital: {countriesDetail.capital}</h1>
-            <h1>Subregión: {countriesDetail.subregion}</h1>
-            <h1>Área: {countriesDetail.area}</h1>
-            <h1>Población: {countriesDetail.poblacion}</h1>
-            {   countriesDetail.activities?.length > 0 ? (<h1>Actividades: 
-                    {
+        <>
+        <StyledPaisDetalle> 
+            <div className='div_bienvenida'>
+                <h1 className='h1_titulo'>Bienvenidos a:</h1>
+                <h2 className='h2_titulo'>{countriesDetail.name}</h2>
+                <IoArrowBackCircle className='button' onClick={goBack} size={80}/>
+            </div>
+            <div className='div_detalle'>
+                <img className='img' src={countriesDetail.bandera} alt={countriesDetail.name} />
+                <div className='div_detalle_texto'>
+                    <h2 className='h2'>{`${countriesDetail.name} ${countriesDetail.id}`}</h2>
+                    <h2 className='h2'>Continente: {countriesDetail.continente}</h2>
+                    <h2 className='h2'>Capital: {countriesDetail.capital}</h2>
+                    <h2 className='h2'>Subregión: {countriesDetail.subregion}</h2>
+                    <h2 className='h2'>Área: {countriesDetail.area}</h2>
+                    <h2 className='h2'>Población: {countriesDetail.poblacion}</h2>
+                    {   
                         countriesDetail.activities?.length > 0 ? (
-                            countriesDetail.activities.map(a => (
-                                <div key={a.id}>
-                                    <ul>
-                                        <NavLink to={`/activity/${a.id}`}><li>{a.name}</li></NavLink>
-                                    </ul>
-                                </div>
-                            ))
-                        ) : ('sin actividades')
+                            <h1>Actividades: 
+                            {
+                                countriesDetail.activities.map(a => (
+                                    <div key={a.id}>
+                                        <ul>
+                                            <NavLink to={`/activity/${a.id}`}><li><h1>{a.name}</h1></li></NavLink>
+                                        </ul>
+                                    </div>
+                                ))
+                            }
+                            </h1>
+                        ) : (null)
                     }
-            </h1>) : (null)
-            }
-        </div>
+                </div>
+            </div>
+        </StyledPaisDetalle>
+        </>
     )
 }
 

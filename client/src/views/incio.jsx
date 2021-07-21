@@ -1,17 +1,17 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { Container } from "./Inicio/inicio";
 
 export default function Inicio () {
 
     return (
-        <div>
-            <h1>COMENCEMOS EL VIAJE!</h1>
-            <div>
-                <button>INICIAR SESIÓN</button>
-                <button>REGISTRARSE</button>
-                <NavLink to='/countries'>HOME</NavLink>
-            </div>
-        </div>
+        <Container>
+            <NavLink className='navlink' to='/home'>
+                <div className='div_titulo'>
+                    <h1 className='h1_titulo'>COMENCEMOS EL VIAJE!</h1>
+                </div>
+            </NavLink>
+        </Container>
     )
 }
 

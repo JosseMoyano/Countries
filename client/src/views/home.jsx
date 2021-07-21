@@ -4,6 +4,8 @@ import { NavLink } from 'react-router-dom';
 import FirstCountries from '../components/first_countries';
 import SearchedCountries from '../components/searched_countries';
 import { getCountry, searchCountries,  clearCountriesSearched, getActivities } from '../redux/action';
+import { StyledHome } from './Home/home';
+import Nav from './nav'
 
 export default function Home () {
     
@@ -106,79 +108,115 @@ export default function Home () {
 
     return (
         <>
-            <header>                
-                <div>
-                    <input type='text' name='Buscar' placeholder='Escribi aqui el País que deseas encontrar' onChange={onChange} value={country} />
-                    <button name='Buscar' onClick={(e) => onClick(e)}>Buscar</button>
+        <Nav />
+        <StyledHome>
+            <div className='header'>                
+                <div className='div_busqueda'>
+                    <input className='input_busqueda' type='text' name='Buscar' placeholder='Escribi aqui el País que deseas encontrar' onChange={onChange} value={country} />
+                    <button className='button_busqueda' name='Buscar' onClick={(e) => onClick(e)}>Buscar</button>
                 </div>
-                
-            </header>
-            <div>
-                <button onClick={onClick} name='Continente' value={continentes} >CONTINENTE</button >
-                {
-                    continentes === true ? (
+                <div className='div_filtros'>
+                    <div className='div_button'>
+                        <button className='button_filtros' onClick={onClick} name='Continente' value={continentes} >CONTINENTE</button >
+                    </div>
+                    <div className='div_button'>
+                        <button className='button_filtros' onClick={onClick} value={actividades} name='Actividad'>ACTIVIDADES</button>                
+                    </div>
+                    <div className='div_button'>
+                        <button className='button_filtros' onClick={onClick} value={ABC} name='ABC'>ABC</button> 
+                    </div>
+                    <div className='div_button'>
+                        <button className='button_filtros' onClick={onClick} value={poblacion} name='poblacion'>POBLACIÓN</button>
+                    </div>
+                </div>
+            </div>
+        
+        <div>
+            {
+                continentes === true ? (
+                <div className='div_filtro_continente'>
+                    {
                         continents.map(c => (
                             <div onChange={onChange} key={c}>
                                 <input type="radio" id={c} name="Continente" value={c}/>                           
-                                <label htmlFor={c}>{c}</label>
+                                <label  htmlFor={c}>{c}</label>
                             </div>
                         ))
-                    ) : (null)
-                }
-                <button onClick={onClick} value={actividades} name='Actividad'>ACTIVIDADES</button>                
-                {                    
-                    actividades === true ? (
-                        activities.length > 0 ? (
-                            activities?.map(a => (
-                                <div key={a.id} onChange={onChange}  >
-                                    <input type='radio' id={a.name} value={a.id} name='actividad' />
-                                    <label>{a.name}</label>
-                                </div>
-                            ))
-                        ) : (<h1>No hay actividades para Mostrar, primero crealas aqui: <NavLink to='/activities/add'>Add Activities</NavLink></h1>)
-                    ) : (null)                    
-                }       
-                <button onClick={onClick} value={ABC} name='ABC'>ABC</button> 
-                {
-                    ABC === true ? (
-                        <div onChange={onChange}>
-                            <input type="radio" id="AZ" name="ABC" value={az} />                           
-                            <label htmlFor="AZ">A-Z</label>
-                            <input type="radio" id="ZA" name="ABC" value={za}/>                           
-                            <label htmlFor="ZA">Z-A</label>
-                        </div>                        
-                    ) : (null)
-                }        
-                <button onClick={onClick} value={poblacion} name='poblacion'>POBLACIÓN</button>
-                {
-                    poblacion === true ? (
-                        <div onChange={onChange}>
-                            <input type="radio" id="MenorMayor" name="poblacion" value={menorMayor} />                           
-                            <label htmlFor="MenorMayor">Menor a Mayor</label>
-                            <input type="radio" id="MayorMenor" name="poblacion" value={mayorMenor}/>                           
-                            <label htmlFor="MayorMenor">Mayor a Menor</label>
-                        </div>
-                    ) : (null)
-                }
-            </div>
-            {
-                (ABC === true || poblacion === true ) ? (
-                    searchedCountries.todo?.length > 0   ? (
-                        <SearchedCountries searchedCountries={searchedCountries.todo} poblacion={poblacion} menorMayor={menorMayor} mayorMenor={mayorMenor} ABC={ABC} AZ={az} ZA={za} actividad={actividad} continente={continente} array='searchedCountries'  />
-                    ) : firstCountries.todo?.length > 0   ? (
-                        <FirstCountries  firstCountries={firstCountries.todo} poblacion={poblacion} menorMayor={menorMayor} mayorMenor={mayorMenor} ABC={ABC} AZ={az} ZA={za} actividad={actividad} continente={continente} array='firstCountries'  />
-                    ) : (<h1>Cargando</h1>)
-
-                ) : (!ABC && !poblacion) ? (
-                    searchedCountries.actual?.length > 0 ? (
-                        <SearchedCountries  searchedCountries={searchedCountries.actual} actividad={actividad} continente={continente} array='searchedCountries'  />
-                    ) : firstCountries.actual?.length > 0   ? (
-                        <FirstCountries  firstCountries={firstCountries.actual} continente={continente} array='firstCountries' actividad={actividad} />
-                    ) : searchedCountries.actual?.length === 0 ? (
-                        <h1>No se encontró el pais</h1>
-                    ) : (<h1>Cargando</h1>)
-                ) : (null) 
+                    }
+                </div>
+                ) : (null)
             }
+            {                    
+                actividades === true ? (
+                <div className='div_filtro_continente'>
+                    { 
+                        activities.length > 0 ? (
+                        activities?.map(a => (
+                            <div key={a.id} onChange={onChange}  >
+                                <input type='radio' id={a.name} value={a.id} name='actividad' />
+                                <label>{a.name}</label>
+                            </div>
+                        ))
+                        ) : (<p className='p_filtro_actividades'>No hay actividades para Mostrar, primero crealas aqui: <NavLink className='link' to='/activities/add'>{` Add Activities`}</NavLink></p>)
+                    }
+                </div>
+                        
+                ) : (null)                    
+            }   
+            {
+                ABC === true ? (
+                <div className='div_ABC' onChange={onChange}>
+                    {/* <div onChange={onChange} className='div_ABC'> */}
+                    <div>
+                        <input  type="radio" id="AZ" name="ABC" value={az}/>                           
+                        <label className='input_ABC' htmlFor="AZ">A-Z</label>
+                    </div>
+                    <div>
+                        <input  type="radio" id="ZA" name="ABC" value={za}/>                           
+                        <label className='input_ABC' htmlFor="ZA">Z-A</label>
+                    </div>
+                    {/* </div>    */}
+                </div>
+                ) : (null)
+            }   
+            {
+                poblacion === true ? (
+                <div className='div_ABC' onChange={onChange}>
+                    {/* <div onChange={onChange}> */}
+                    <div>
+                        <input type="radio" id="MenorMayor" name="poblacion" value={menorMayor} />                           
+                        <label htmlFor="MenorMayor">Menor a Mayor</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="MayorMenor" name="poblacion" value={mayorMenor}/>                           
+                        <label htmlFor="MayorMenor">Mayor a Menor</label>
+                    </div>
+                    {/* </div> */}
+                </div>
+                ) : (null)
+            }
+        </div>
+        <div className='div_renderizado'>
+                {
+                    (ABC === true || poblacion === true ) ? (
+                        searchedCountries.todo?.length > 0   ? (
+                            <SearchedCountries searchedCountries={searchedCountries.todo} poblacion={poblacion} menorMayor={menorMayor} mayorMenor={mayorMenor} ABC={ABC} AZ={az} ZA={za} actividad={actividad} continente={continente} array='searchedCountries'  />
+                        ) : firstCountries.todo?.length > 0   ? (
+                            <FirstCountries  firstCountries={firstCountries.todo} poblacion={poblacion} menorMayor={menorMayor} mayorMenor={mayorMenor} ABC={ABC} AZ={az} ZA={za} actividad={actividad} continente={continente} array='firstCountries'  />
+                        ) : (<h1>Cargando</h1>)
+
+                    ) : (!ABC && !poblacion) ? (
+                        searchedCountries.actual?.length > 0 ? (
+                            <SearchedCountries  searchedCountries={searchedCountries.actual} actividad={actividad} continente={continente} array='searchedCountries'  />
+                        ) : firstCountries.actual?.length > 0   ? (
+                            <FirstCountries  firstCountries={firstCountries.actual} continente={continente} array='firstCountries' actividad={actividad} />
+                        ) : searchedCountries.actual?.length === 0 ? (
+                            <h1>No se encontró el pais</h1>
+                        ) : (<h1>Cargando</h1>)
+                    ) : (null) 
+                }
+        </div>
+        </StyledHome>
         </>
     )
 }
