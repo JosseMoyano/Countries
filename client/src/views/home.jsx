@@ -211,9 +211,9 @@ export default function Home () {
                         ) : firstCountries.actual?.length > 0   ? (
                             <FirstCountries  firstCountries={firstCountries.actual} continente={continente} array='firstCountries' actividad={actividad} />
                         ) : searchedCountries.actual?.length === 0 ? (
-                            <h1>No se encontró el pais</h1>
-                        ) : (<h1>Cargando</h1>)
-                    ) : (null) 
+                            <h1>Cargando</h1>
+                        ) : (<h1>No se encontró el pais</h1>)
+                    ) : (<h1>No se encontró el pais</h1>) 
                 }
         </div>
         </StyledHome>

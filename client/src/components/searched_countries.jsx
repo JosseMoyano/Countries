@@ -34,7 +34,7 @@ export default function SearchedCountries (props) {
                         searchedCountries?.map(
                             country => <Pais key={country.id} name={country.name} bandera={country.bandera} continente={country.continente} id={country.id} />)
                     )
-                ) : (<h1>Cargando</h1>)
+                ) : (<h1>No se encontro el pais</h1>)
             }
         </>
     )
