@@ -5,10 +5,13 @@ export const StyledActividades = styled.div`
     display: flex;
     background-image: url(${img});
     background-size: cover;
-    height: 757px;
     align-items: center;
     align-content: center;
     justify-content: center;
+    height: 757px;
+    /* margin: -1rem; */
+    padding: 0rem;
+    width: 100%;
 
     .nav{
         background: transparent;

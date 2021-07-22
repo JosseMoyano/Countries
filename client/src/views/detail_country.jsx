@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { getCountryDetail, clearCountryDetail } from '../redux/action';
+import {StyledPaisDetalle} from './Pais Detalle2/pais_detalle2'
 
 export default function DetailCountry () {
 
@@ -17,7 +18,7 @@ export default function DetailCountry () {
     },[id, dispatch])
 
     return (
-        <div>
+        <StyledPaisDetalle>
             { countriesDetail ? (
                 <PaisDetail countriesDetail={countriesDetail} /> 
             ) : countriesDetail === undefined  ? (
@@ -26,7 +27,7 @@ export default function DetailCountry () {
                 <h1>Pagina No encontrada </h1>
             )
             }
-        </div>
+        </StyledPaisDetalle>
     )
 }
 

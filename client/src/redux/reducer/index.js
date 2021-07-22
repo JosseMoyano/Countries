@@ -68,8 +68,8 @@ export default function reducer (state = initialState, action){
                 ...state,
                 activities:{
                     ...state.activities,
-                    todo: [...state.activities.todo, action.payload],
-                    actual: [...state.activities.todo, action.payload]
+                    todo: state.activities?.todo ? [...state.activities?.todo, action.payload] : [action.payload] ,
+                    actual: state.activities?.todo ? [...state.activities?.todo, action.payload] : [action.payload]
                 }
             }
 
@@ -167,8 +167,8 @@ export default function reducer (state = initialState, action){
                 ...state,
                 countriesFilterByActivity:{
                     ...state.countriesFilterByActivity,
-                     todo: state.activities?.todo.filter(actividad => actividad.id === action.payload.activity),
-                     actual: state.activities?.todo.filter(actividad => actividad.id === action.payload.activity),
+                     todo: state.activities.todo ?  state.activities?.todo?.filter(actividad => actividad.id === action.payload.activity) : [],
+                     actual: state.activities.todo ? state.activities?.todo?.filter(actividad => actividad.id === action.payload.activity) : [],
                 }
             }
 

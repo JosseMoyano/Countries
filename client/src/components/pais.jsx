@@ -22,16 +22,19 @@ export default function Pais (props){
             };
         }
     }
-console.log(countriesFavorites.some(c => id === c.id))
+    
     return (
         <StyledPais>
-            {
-                !remove ? (
-                    <div className='button_pais'> 
-                        <button className='button_corazon' onClick={onClick2}><FaHeart size={20} className='corazon'/></button>
-                    </div>
-                    ) : (null)
-            }
+            <div className='div_container_button'>
+                {
+                    !remove ? (
+                        <div className='button_pais'> 
+                            <button className='button_corazon' onClick={onClick2}><FaHeart size={20} className='corazon'/></button>
+                        </div>
+                        ) : (null)
+                }
+            </div>
+            <div className='div_container_button'>
             {
                 remove ? (
                     <div className='button_pais'>
@@ -39,6 +42,7 @@ console.log(countriesFavorites.some(c => id === c.id))
                     </div>
                 ) : (null)
             }
+            </div>
             <img className='img_pais' src={bandera} alt={name} />
             <div className='nombre_pais'>
                 <NavLink className='navlink' to={`/countries/${id}`}><h2 className='h2_paisycontinente'>{name} - {continente}</h2></NavLink>

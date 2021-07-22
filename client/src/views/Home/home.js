@@ -72,6 +72,8 @@ export const StyledHome = styled.div`
 
                     &:hover{
                         cursor: pointer;
+                    /* color: #03045E; */
+
                     }
 
                 }
@@ -90,13 +92,13 @@ export const StyledHome = styled.div`
         padding: 0;
         margin-left: 2%;
         width: 96%;
-        background-color: #00B4D8;
+        background-color: #0096C7;
         min-height: 60px;
         border-radius: 0px 0px 25px 25px;
         box-shadow: rgba(0,0,0,0.4) 0px 20px 35px;
 
         .div_filtro_continente {
-            background-color: #00B4D8;
+            background-color: #0096C7;
             display: flex;
             justify-content: space-evenly;
             margin-top: -3rem;
@@ -119,15 +121,36 @@ export const StyledHome = styled.div`
                 border-radius: 25px;
                 box-sizing: content-box;
 
+
+
                 label{
                     cursor: pointer;
+                    &:hover{
+                    color: #03045E;
+
+                    }
+                }
+            }
+
+            .link2{
+                color: white;
+                &:hover{
+                    text-decoration: none;
+                    color: #03045E;
                 }
             }
 
         }
 
+        .button_div{
+            &:hover{
+                cursor: pointer;
+            }
+        }
+        
+
         .div_filtro_ABC2{
-            background-color: #00B4D8;
+            background-color: #0096C7;
             margin: 0%;
             padding: 0;
             margin-left: 2%;
@@ -136,7 +159,7 @@ export const StyledHome = styled.div`
             border-radius: 0px 0px 25px 25px;
             display: flex;
             justify-content: space-evenly;
-            margin-top: 0;
+            margin-top: -48px;
             margin-bottom: 4%;
 
             .container_ABC{
@@ -156,6 +179,12 @@ export const StyledHome = styled.div`
                     box-sizing: content-box;
                     color: white;
 
+                    .input_ABC{
+                        &:hover{
+                            cursor: pointer;
+                        }
+                    }
+                
                     
                 }
             }
@@ -164,7 +193,7 @@ export const StyledHome = styled.div`
     
 
         .div_filtro_ABC{
-            background-color: #00B4D8;
+            background-color: #0096C7;
             margin: 0%;
             padding: 0;
             margin-left: 2%;

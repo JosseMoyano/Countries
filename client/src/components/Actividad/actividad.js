@@ -6,7 +6,7 @@ export const StyledActividad = styled.div`
         box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
 
         margin: 3rem;
-        margin-top:7rem;
+        margin-top:3rem;
         padding: 1rem;
         display: flex;
         flex-direction: column;

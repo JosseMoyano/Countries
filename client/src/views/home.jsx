@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import FirstCountries from '../components/first_countries';
 import SearchedCountries from '../components/searched_countries';
 import { getCountry, searchCountries,  clearCountriesSearched, getActivities } from '../redux/action';
@@ -10,10 +10,10 @@ import Nav from './nav'
 export default function Home () {
     
     const dispatch = useDispatch();
+    const history = useHistory()
 
     const firstCountries = useSelector( state => state.firstCountries); 
     const searchedCountries = useSelector( state => state.searchedCountries); 
-    // const prevCountries = useSelector( state => state.prevCountries); 
     const activities = useSelector( state => state.activities.todo); 
 
     const [ country, setCountry ] = useState(''); 
@@ -158,14 +158,14 @@ export default function Home () {
                                         <label>{a.name}</label>
                                     </div>
                                 ))
-                                ) : (<p className='p_filtro_actividades'>No hay actividades para Mostrar, primero crealas aqui: <NavLink className='link' to='/activities/add'>{` Add Activities`}</NavLink></p>)
+                                ) : (<div className='div_filtro_continente button_div'  onClick={()=> history.push('/activities/add')}> No hay actividades para Mostrar ¿Quieres crearlas? </div>)
                             }
                         </div>
                         ) : (null)                    
                     }   
                     {
                         ABC === true ? (
-                        <div className={continentes || actividades ? 'div_filtro_ABC' : 'div_filtro_continente' } onChange={onChange}>
+                        <div className={continentes || actividades ? 'div_filtro_ABC' : 'div_filtro_ABC2' } onChange={onChange}>
                             {/* <div onChange={onChange} className='div_ABC'> */}
                             <div className='container_ABC'>
                                 <div>
@@ -188,11 +188,11 @@ export default function Home () {
                             <div className='container_ABC'>
                             <div>
                                 <input type="radio" id="MenorMayor" name="poblacion" value={menorMayor} />                           
-                                <label htmlFor="MenorMayor">Menor a Mayor</label>
+                                <label className='input_ABC' htmlFor="MenorMayor">Menor a Mayor</label>
                             </div>
                             <div>
                                 <input type="radio" id="MayorMenor" name="poblacion" value={mayorMenor}/>                           
-                                <label htmlFor="MayorMenor">Mayor a Menor</label>
+                                <label className='input_ABC' htmlFor="MayorMenor">Mayor a Menor</label>
                             </div>
                             </div>
                             {/* </div> */}

@@ -77,16 +77,14 @@ export default function AddActivities (){
 
     return (
         <StyledAñadirActividades>
+            <div className='div_container'>
             <div className='div_container1'>
                 <h1 className='h1_titulo'>Añadir actividades</h1>
                 <p className='p'>Llena este formulario para añadir distintas actividades que puedan ser realizadas en los diferentes países del mundo</p>
                 <p className='p'>Todos los son campos obligatorios, es decir que para poder crear una nueva actividad debes llenar todos los campos, en donde:</p>
-               
             </div>
-
             <div className='div_container2'>
                 <form className='form' onSubmit={OnSubmit} onChange={onChange}>
-               
                     <div className='div_container3'>
                         <div className='div_labels'>
                             <label className='label'>Nombre:</label>
@@ -145,85 +143,20 @@ export default function AddActivities (){
                     </div>
                 </form>
             </div>
-
-                {/* <div className='div_labelinput'> */}
-                    {/* <label className='label'>Nombre:</label> */}
-                    {/* <input className='input' type='text' name='name' value={actividad.name} placeholder='Nombre de la actividad'  pattern="[a-zA-Z- ]*" onChange={onChange} required /> */}
-                {/* </div> */}
-
-                {/* <div className='div_labelinput'> */}
-                    {/* <label className='label'>Duración:</label> */}
-                    {/* <input className='input' type='number' name='duracion' value={actividad.duracion} placeholder='Duración de la actividad'  onChange={onChange} required /> */}
-                {/* </div> */}
-                
-                {/* <div className='div_labelinput'> */}
-                    {/* <label className='label'>Dificultad:</label> */}
-                    {/* <input className='input' type='number' name='dificultad' value={actividad.dificultad} max='5' min='1' placeholder='Dificultad de la actividad' onChange={onChange} required />   */}
-                {/* </div> */}
-                    
-                {/* <div className='div_labelinput'> */}
-                    {/* <label className='label'>Temporada:</label> */}
-                        {/* <input className='' type="radio" id='Otoño' name="temporada" defaultValue='Otoño' checked={(actividad.temporada === 'Otoño') ? true : false} onChange={onChange}/>                           
-                        <label htmlFor='Otoño'>Otoño</label>
-                        <input className='' type="radio" id='Primavera' name="temporada" defaultValue='Primavera' checked={(actividad.temporada === 'Primavera') ? true : false}  onChange={onChange}/>                           
-                        <label htmlFor='Primavera'>Primavera</label>
-                        <input className='' type="radio" id='Invierno' name="temporada" defaultValue='Invierno' checked={(actividad.temporada === 'Invierno') ? true : false} onChange={onChange} />                           
-                        <label htmlFor='Invierno'>Invierno</label>
-                        <input className='' type="radio" id='Verano' name="temporada" defaultValue='Verano' checked={(actividad.temporada === 'Verano') ? true : false} onChange={onChange} />                           
-                        <label htmlFor='Verano'>Verano</label>  */}
-                {/* </div> */}
-                {/* <div className='div_labelinput'> */}
-                    {/* <label className='label'>Paises</label> */}
-                    {/* <input className='input' name='Buscar' type='text' placeholder='Escribi aqui el País que deseas encontrar' value={country} onChange={onChange} /> */}
-                {/* </div> */}
-{/*                        
-                        {
-                            // paises ? (
-                                paises?.length > 0 ? (
-                                <div>
-                                    {
-                                        paises.map(pais => (
-                                            <div key={pais.id}>
-                                                <p>{pais.name}</p>
-                                                <button value='eliminar' onClick={(e) => eliminar(e, pais.id)}>x</button>
-                                            </div>
-                                        ))
-                                    }
-                                </div>
-                                ) : (<div>Aca se colacaran los paises que seleccionaste, si te arrepientes toca en la x y se eliminaran</div>)
-                                // ) : (null)
-                        }
-                         */}
-                        {/* {
-                            prevCountries?.length > 0 ? (
-                                    <div className='div_paises1'>
-                                        {
-                                            prevCountries?.map(pais => (
-                                                <div key={pais.id} className='div_pais'>
-                                                    <button value='agregar' onClick={(e) => agregar(e, pais.id, pais.name)}><img src={pais.bandera} alt='pais.bandera'/></button>                    
-                                                </div>
-                                            ))
-                                        }
-                                    </div>
-                              
-                            ) : (null)
-                        } */}
-                {/* <button onSubmit={OnSubmit} >Enviar</button> */}
-                {/* </div> */}
-            {/* </form> */}
-            {/* </div> */}
             {
                 error ? (
                     <div className='div_modal'>
                         <h2  className='h2_modal'>Hubo un error en la creacion de la actividad. Recuerda completar todos los requirimientos</h2>
-                        <button value='error' className='button_modal' onClick={(e) => aceptar(e)}>Aceptar</button>
+                        <div className='div_buttons_modals'>
+                            <button value='error' className='button_modal' onClick={(e) => aceptar(e)}>Aceptar</button>
+                        </div>
                     </div>
                 ) : ( null )
             }
             {
                 ok ? (
                     <div className='div_modal'>
-                        <h2 className='h2_modal'>Actividad creada con exito</h2>
+                        <h2 className='h2_modal'>¡Actividad creada con exito!</h2>
                         <div className='div_buttons_modals'>                            
                         <button value='ok' className='button_modal' onClick={(e) => aceptar(e)}>Aceptar</button>
                         <button type='button' className='button_modal' onClick={() => history.push('/activities/show')}>Mostrar Actividades</button>
@@ -231,6 +164,7 @@ export default function AddActivities (){
                     </div>
                 ) : (null)
             }
+            </div>
         </StyledAñadirActividades>
     )
 }

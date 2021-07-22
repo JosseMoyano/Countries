@@ -15,14 +15,16 @@ export const StyledPais = styled.div`
         border-radius: 25px;
         box-sizing: content-box;
         align-items: center;
-        justify-content: space-evenly;
+        /* justify-content: space-evenly; */
+        justify-content: center;
         background-color: #ecf0f3;
 
     .img_pais{
         width: 80%;
-        max-height: 260px;
+        max-height: 220px;
+        /* max-height: 260px; */
         border-radius: 25px;
-        margin-top: 1rem;
+        margin-top: -1rem;
     }
 
     .nombre_pais{
@@ -42,31 +44,40 @@ export const StyledPais = styled.div`
         }
     }
 
-    .button_pais {
-        margin-top: -0.5rem;
-        margin-bottom: 0.5rem;
+    .div_container_button{
         display: flex;
-	    justify-content: flex-end;
-        position: absolute;
+        margin-left: 90%;
+        padding-top: 0rem;
 
-        .button_corazon{
-            width: 30px;
-            height: 30px;
-            border: none;
-            background-color: transparent;
-            position: relative;
-            top: -125px;
-            right: -180px;
+        .button_pais {
+            margin-top: -0.5rem;
+            /* padding-bottom: -3rem; */
+            display: flex;
+	        justify-content: flex-end;
+            margin-top: -1rem;
+            /* position: absolute; */
 
-            &:hover{
-                cursor: pointer;
-            }
-            
-            .corazon{
-                color: red;
+            .button_corazon{
+                width: 30px;
+                height: 30px;
+                border: none;
+                background-color: transparent;
+                margin-top: 2rem;
+                /* position: relative;
+                top: -125px;
+                right: -180px; */
+
+                &:hover{
+                    cursor: pointer;
+                }
+
+                .corazon{
+                    color: red;
+                }
             }
         }
-    }
+}
+
     
 
 `
