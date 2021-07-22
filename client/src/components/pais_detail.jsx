@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { StyledPaisDetalle } from '../views/Pais Detalle/pais_detalle';
 import { IoArrowBackCircle } from "react-icons/io5";
 
@@ -30,17 +30,13 @@ export default function PaisDetail({countriesDetail}){
                     <h2 className='h2'>Población: {countriesDetail.poblacion}</h2>
                     {   
                         countriesDetail.activities?.length > 0 ? (
-                            <h1>Actividades: 
+                            <h2 className='h2'>Actividades: 
                             {
                                 countriesDetail.activities.map(a => (
-                                    <div key={a.id}>
-                                        <ul>
-                                            <NavLink to={`/activity/${a.id}`}><li><h1>{a.name}</h1></li></NavLink>
-                                        </ul>
-                                    </div>
+                                    <span key={a.id}> {a.name} - </span>
                                 ))
                             }
-                            </h1>
+                            </h2>
                         ) : (null)
                     }
                 </div>

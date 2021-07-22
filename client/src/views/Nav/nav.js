@@ -2,10 +2,12 @@ import styled from "styled-components";
 
 export const StyledNav = styled.div`
     display: flex;
+    width: 100%;
     align-items: flex-start;
-    background-color: transparent;
+    background-color: black;
     height: 55px;
     position: fixed;
+    margin-bottom: 0.5rem;
 
     .navlink {
         margin-left: 1rem;

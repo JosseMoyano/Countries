@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { addFavouriteActivity } from '../redux/action';
 import { StyledActividad } from './Actividad/actividad';
@@ -11,27 +11,30 @@ export default function Activity (props) {
     
     const {name, id, countries, temporada, duracion, dificultad, onClick, remove} = props;
 
+    const activitiesFavourite = useSelector(state => state.activitiesFavourite)
+
     const dispatch = useDispatch()
     const history = useHistory()
 
     const onClick2 = () => {
         if(!remove){
+            if(!(activitiesFavourite.some(a => a.id === id))){
         dispatch(addFavouriteActivity({ name, id, countries, temporada, duracion, dificultad}))
-    } }
+        }}}
 
     return (
         <StyledActividad key={id}>
             <div className='button_corazon_x'>
                 {
                     !remove ? (
-                        <FaHeart onClick={() => onClick2()}/>
+                        <FaHeart className='corazon' onClick={() => onClick2()}/>
                     ) : (null)
                 }
             </div>
             <div className='button_corazon_x'>
                 {
                     remove ? (
-                        <AiFillCloseCircle onClick={onClick}/>
+                        <AiFillCloseCircle size={20} onClick={onClick}/>
                     ):(null)
                 }
             </div>

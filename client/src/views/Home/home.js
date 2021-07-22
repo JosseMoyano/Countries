@@ -6,7 +6,7 @@ export const StyledHome = styled.div`
         width: 100%;
         background-color: #480080;
         padding-bottom: 15px;
-        padding-top: 60px;
+        padding-top: 70px;
 
         .div_busqueda {
             display: flex;

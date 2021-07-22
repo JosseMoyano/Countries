@@ -1,21 +1,28 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addFavourite } from '../redux/action';
 import { NavLink } from 'react-router-dom';
 import {StyledPais} from './Pais/pais'
 import { FaHeart } from 'react-icons/fa'
+import { AiFillCloseCircle } from 'react-icons/ai'
+
 
 export default function Pais (props){
 
     const {name, bandera, continente, id, remove, onClick} = props;
 
+    const countriesFavorites = useSelector(state => state.countriesFavorites)
+
     const dispatch = useDispatch();
     
     const onClick2 = () => {
         if(!remove){
-        dispatch(addFavourite({name, bandera, continente, id}));
-    }}
-
+            if(!(countriesFavorites.some(c => id === c.id))){
+            dispatch(addFavourite({name, bandera, continente, id}))
+            };
+        }
+    }
+console.log(countriesFavorites.some(c => id === c.id))
     return (
         <StyledPais>
             {
@@ -28,7 +35,7 @@ export default function Pais (props){
             {
                 remove ? (
                     <div className='button_pais'>
-                        <button className='button_corazon' onClick={onClick}>x</button>
+                        <button className='button_corazon' onClick={onClick}><AiFillCloseCircle size={20}/></button>
                     </div>
                 ) : (null)
             }

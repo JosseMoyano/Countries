@@ -15,16 +15,16 @@ const initialState = {
         todo: [],
         actual: []
     },
-    countriesFavorites: {
-        todo: [],
-        actual: []
-    },
+    countriesFavorites: [],
     activitiesFavourite: [],
     countriesFilter: {
         todo: [],
         actual:[]
     },
-    countriesFilterByActivity: undefined,
+    countriesFilterByActivity: {
+        todo:[],
+        actual:[]
+    },
     activityDetail: []
     
 }
@@ -48,8 +48,8 @@ export default function reducer (state = initialState, action){
                     ...state.searchedCountries,
                     todo: action.payload,
                     actual: action.payload,
-                    },
-                } 
+                }
+            } 
 
         case SEARCH_COUNTRIES_PREV:
             return {
@@ -94,28 +94,22 @@ export default function reducer (state = initialState, action){
         case ADD_FAVOURITE:
             return {
                 ...state,
-                countriesFavorites:{
-                    ...state.countriesFavorites,
-                    todo: [...state.countriesFavorites.todo, action.payload],
-                    actual: [...state.countriesFavorites.actual, action.payload],
+                countriesFavorites: [...state.countriesFavorites, action.payload],
             }
-        }
+            
         
         case REMOVE_FAVOURITE:
             return {
                 ...state,
-                countriesFavorites:{
-                    ...state.countriesFavorites,
-                    todo: state.countriesFavorites.todo.filter(c => c.id !== action.payload),
-                    actual: state.countriesFavorites.todo.filter(c => c.id !== action.payload)
-                } 
-            }
+                countriesFavorites: state.countriesFavorites.filter(c => c.id !== action.payload),
+            } 
+            
         
         case ADD_FAVOURITE_ACTIVITY:
             return {
                 ...state,
                 activitiesFavourite: [...state.activitiesFavourite, action.payload]
-        }  
+            }  
         
         case REMOVE_FAVOURITE_ACTIVITY:
             return{
@@ -149,6 +143,7 @@ export default function reducer (state = initialState, action){
                     actual: action.payload
                 }
             }
+
         case CLEAR_COUNTRIES_PREV:
             return {
                 ...state,
@@ -165,13 +160,17 @@ export default function reducer (state = initialState, action){
                     todo: state[action.payload.array].actual.filter(country => country.continente === action.payload.continente),
                     actual: state[action.payload.array].actual.filter(country => country.continente === action.payload.continente),
                 } 
-        }
+            }
         
         case FILTER_ACTIVITY:
             return {
                 ...state,
-                countriesFilterByActivity: state.activities?.todo.filter(actividad => actividad.id === action.payload.activity),
-        }
+                countriesFilterByActivity:{
+                    ...state.countriesFilterByActivity,
+                     todo: state.activities?.todo.filter(actividad => actividad.id === action.payload.activity),
+                     actual: state.activities?.todo.filter(actividad => actividad.id === action.payload.activity),
+                }
+            }
 
         case ORDER:
             return {
@@ -190,6 +189,11 @@ export default function reducer (state = initialState, action){
                     ...state.countriesFilter,
                     actual:[...state.countriesFilter.actual],
                     todo: state.countriesFilter?.todo?.sort(action.payload.orderFunction)
+                },
+                countriesFilterByActivity:{
+                    ...state.countriesFilterByActivity,
+                    actual: state.countriesFilterByActivity.actual ? [...state.countriesFilterByActivity.actual] : [],
+                    todo: state.countriesFilterByActivity.actual[0]?.countries.sort(action.payload.orderFunction)
                 } 
             }
         

@@ -4,7 +4,7 @@ export const StyledActividad = styled.div`
         box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, 
                     rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
         margin: 3rem;
-        /* margin-top:0; */
+        margin-top:4rem;
         padding: 1rem;
         display: flex;
         flex-direction: column;
@@ -17,6 +17,12 @@ export const StyledActividad = styled.div`
         .button_corazon_x{
             display: flex;
             justify-content: flex-end;
+            .corazon{
+                color: red;
+                &:hover{
+                cursor: pointer;
+                }
+            }
         }
 
         h1{

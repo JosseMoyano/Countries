@@ -29,7 +29,7 @@ export default function SearchedCountries (props) {
                     continente ? (
                         <FiltroContinente continente={continente} array='searchedCountries' countries={searchedCountries} ABC={ABC} poblacion={poblacion} />
                     ) : actividad.length > 0 ? (
-                        <FiltroActividad actividad={parseInt(actividad.toString())} />
+                        <FiltroActividad actividad={parseInt(actividad.toString())}  ABC={ABC} AZ={AZ} ZA={ZA} poblacion={poblacion} menorMayor={menorMayor} mayorMenor={mayorMenor} />
                     ) : (
                         searchedCountries?.map(
                             country => <Pais key={country.id} name={country.name} bandera={country.bandera} continente={country.continente} id={country.id} />)

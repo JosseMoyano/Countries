@@ -121,7 +121,6 @@ export const getActivities = () => {
 }
 
 export const getActivityDetail = (id) => {
-    console.log('entre a la action y me llego: ',id)
     return {
         type: GET_ACTIVITY_DETAIL,
         payload: id

@@ -5,5 +5,10 @@ export const StyledActividades = styled.div`
     padding: 0;
     width: 100%;
     background-color: #cff5ff;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    
 
 `
