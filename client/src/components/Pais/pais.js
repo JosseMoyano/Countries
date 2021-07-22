@@ -1,24 +1,28 @@
 import styled from "styled-components";
 
 export const StyledPais = styled.div`
-        box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, 
-                    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
-        /* box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px; */
+        /* box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, 
+                    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px; */
+        box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
         margin: 3rem;
+        margin-bottom: 1rem;
         padding: 1rem;
         display: flex;
         flex-direction: column;
         background-color: white;
         width: 25%;
-        height: 365px;
-        border-radius: 10px;
+        height: 300px;
+        border-radius: 25px;
         box-sizing: content-box;
+        align-items: center;
+        justify-content: space-evenly;
+        background-color: #ecf0f3;
 
     .img_pais{
-        width: 100%;
+        width: 80%;
         max-height: 260px;
-        /* height: 258px; */
-        border-radius: 10px;
+        border-radius: 25px;
+        margin-top: 1rem;
     }
 
     .nombre_pais{
@@ -30,10 +34,6 @@ export const StyledPais = styled.div`
         .navlink{
             text-decoration: none;
             color: black;
-
-            &:hover {
-                color: #6001AA;
-            }
         }
 
         .h2_paisycontinente{
@@ -47,12 +47,16 @@ export const StyledPais = styled.div`
         margin-bottom: 0.5rem;
         display: flex;
 	    justify-content: flex-end;
+        position: absolute;
 
         .button_corazon{
             width: 30px;
             height: 30px;
             border: none;
             background-color: transparent;
+            position: relative;
+            top: -125px;
+            right: -180px;
 
             &:hover{
                 cursor: pointer;

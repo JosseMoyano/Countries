@@ -116,8 +116,8 @@ export default function Home () {
                     <button className='button_busqueda' name='Buscar' onClick={(e) => onClick(e)}>Buscar</button>
                 </div>
                 <div className='div_filtros'>
-                    <div className='div_button'>
-                        <button className='button_filtros' onClick={onClick} name='Continente' value={continentes} >CONTINENTE</button >
+                    <div className='div_button '>
+                        <button className='button_filtros button_inicio' onClick={onClick} name='Continente' value={continentes} >CONTINENTE</button >
                     </div>
                     <div className='div_button'>
                         <button className='button_filtros' onClick={onClick} value={actividades} name='Actividad'>ACTIVIDADES</button>                
@@ -126,76 +126,82 @@ export default function Home () {
                         <button className='button_filtros' onClick={onClick} value={ABC} name='ABC'>ABC</button> 
                     </div>
                     <div className='div_button'>
-                        <button className='button_filtros' onClick={onClick} value={poblacion} name='poblacion'>POBLACIÓN</button>
+                        <button className='button_filtros button_fin' onClick={onClick} value={poblacion} name='poblacion'>POBLACIÓN</button>
                     </div>
                 </div>
             </div>
-        
-        <div>
-            {
-                continentes === true ? (
-                <div className='div_filtro_continente'>
+        {
+            continentes || actividades || ABC || poblacion ? (
+                <div className='div_filtros2'>
                     {
-                        continents.map(c => (
-                            <div onChange={onChange} key={c}>
-                                <input type="radio" id={c} name="Continente" value={c}/>                           
-                                <label  htmlFor={c}>{c}</label>
+                        continentes === true ? (
+                        <div className='div_filtro_continente'>
+                            {
+                                continents.map(c => (
+                                    <div onChange={onChange} key={c}>
+                                        <input type="radio" id={c} name="Continente" value={c}/>                           
+                                        <label  htmlFor={c}>{c}</label>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                        ) : (null)
+                    }
+                    {                    
+                        actividades === true ? (
+                        <div className='div_filtro_continente'>
+                            { 
+                                activities.length > 0 ? (
+                                activities?.map(a => (
+                                    <div key={a.id} onChange={onChange}  >
+                                        <input type='radio' id={a.name} value={a.id} name='actividad' />
+                                        <label>{a.name}</label>
+                                    </div>
+                                ))
+                                ) : (<p className='p_filtro_actividades'>No hay actividades para Mostrar, primero crealas aqui: <NavLink className='link' to='/activities/add'>{` Add Activities`}</NavLink></p>)
+                            }
+                        </div>
+                        ) : (null)                    
+                    }   
+                    {
+                        ABC === true ? (
+                        <div className={continentes || actividades ? 'div_filtro_ABC' : 'div_filtro_continente' } onChange={onChange}>
+                            {/* <div onChange={onChange} className='div_ABC'> */}
+                            <div className='container_ABC'>
+                                <div>
+                                    <input  type="radio" id="AZ" name="ABC" value={az}/>                           
+                                    <label className='input_ABC' htmlFor="AZ">A-Z</label>
+                                </div>
+                                <div>
+                                    <input  type="radio" id="ZA" name="ABC" value={za}/>                           
+                                    <label className='input_ABC' htmlFor="ZA">Z-A</label>
+                                </div>
                             </div>
-                        ))
+                            {/* </div>    */}
+                        </div>
+                        ) : (null)
+                    }   
+                    {
+                        poblacion === true ? (
+                        <div className={continentes || actividades ? 'div_filtro_ABC' : 'div_filtro_ABC2' } onChange={onChange}>
+                            {/* <div onChange={onChange}> */}
+                            <div className='container_ABC'>
+                            <div>
+                                <input type="radio" id="MenorMayor" name="poblacion" value={menorMayor} />                           
+                                <label htmlFor="MenorMayor">Menor a Mayor</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="MayorMenor" name="poblacion" value={mayorMenor}/>                           
+                                <label htmlFor="MayorMenor">Mayor a Menor</label>
+                            </div>
+                            </div>
+                            {/* </div> */}
+                        </div>
+                        ) : (null)
                     }
                 </div>
-                ) : (null)
-            }
-            {                    
-                actividades === true ? (
-                <div className='div_filtro_continente'>
-                    { 
-                        activities.length > 0 ? (
-                        activities?.map(a => (
-                            <div key={a.id} onChange={onChange}  >
-                                <input type='radio' id={a.name} value={a.id} name='actividad' />
-                                <label>{a.name}</label>
-                            </div>
-                        ))
-                        ) : (<p className='p_filtro_actividades'>No hay actividades para Mostrar, primero crealas aqui: <NavLink className='link' to='/activities/add'>{` Add Activities`}</NavLink></p>)
-                    }
-                </div>
-                        
-                ) : (null)                    
-            }   
-            {
-                ABC === true ? (
-                <div className='div_ABC' onChange={onChange}>
-                    {/* <div onChange={onChange} className='div_ABC'> */}
-                    <div>
-                        <input  type="radio" id="AZ" name="ABC" value={az}/>                           
-                        <label className='input_ABC' htmlFor="AZ">A-Z</label>
-                    </div>
-                    <div>
-                        <input  type="radio" id="ZA" name="ABC" value={za}/>                           
-                        <label className='input_ABC' htmlFor="ZA">Z-A</label>
-                    </div>
-                    {/* </div>    */}
-                </div>
-                ) : (null)
-            }   
-            {
-                poblacion === true ? (
-                <div className='div_ABC' onChange={onChange}>
-                    {/* <div onChange={onChange}> */}
-                    <div>
-                        <input type="radio" id="MenorMayor" name="poblacion" value={menorMayor} />                           
-                        <label htmlFor="MenorMayor">Menor a Mayor</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="MayorMenor" name="poblacion" value={mayorMenor}/>                           
-                        <label htmlFor="MayorMenor">Mayor a Menor</label>
-                    </div>
-                    {/* </div> */}
-                </div>
-                ) : (null)
-            }
-        </div>
+        ) : (null)
+    }
         <div className='div_renderizado'>
                 {
                     (ABC === true || poblacion === true ) ? (

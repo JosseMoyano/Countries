@@ -1,18 +1,22 @@
 import styled from 'styled-components';
 
 export const StyledActividad = styled.div`
-        box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, 
-                    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+        /* box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, 
+                    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px; */
+        box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
+
         margin: 3rem;
-        margin-top:4rem;
+        margin-top:7rem;
         padding: 1rem;
         display: flex;
         flex-direction: column;
         background-color: white;
-        width: 25%;
+        width: 15%;
         height: 300px;
         border-radius: 25px;
         box-sizing: content-box;
+        background-color: #ecf0f3;
+
 
         .button_corazon_x{
             display: flex;

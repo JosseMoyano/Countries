@@ -4,23 +4,25 @@ export const StyledNav = styled.div`
     display: flex;
     width: 100%;
     align-items: flex-start;
-    background-color: black;
+    background-color: #03045E;
     height: 55px;
     position: fixed;
+    align-items: center;
     margin-bottom: 0.5rem;
+    box-shadow: rgba(0,0,0,0.4) 0px 20px 35px;
 
     .navlink {
-        margin-left: 1rem;
-        margin-right: 1rem;
-        text-decoration: none;
-        /* background-color: #6001AA; */
-        color: white;
-        margin-top: 0.5rem;
+        margin-left: 0.5rem;
+        min-width: 57px;
         padding: 0.5rem;
-        background: linear-gradient(to right, #732fdf, #bd00ff);
+        text-align: center;
+        border-radius: 10px;
+        text-decoration: none;
+        color: white;
+        background: linear-gradient(to right, #0077B6, #00B4D8);
         
         &:hover {
-            background: linear-gradient(to right, #bd00ff, #732fdf);
+            background: linear-gradient(to right, #00B4D8, #0077B6);
         }
     }
 

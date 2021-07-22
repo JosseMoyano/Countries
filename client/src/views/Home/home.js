@@ -4,9 +4,12 @@ export const StyledHome = styled.div`
 
     .header {
         width: 100%;
-        background-color: #480080;
+        background-color: #0077B6;
         padding-bottom: 15px;
-        padding-top: 70px;
+        padding-top: 80px;
+        border-radius: 0px 0px 35px 35px;
+        box-shadow: rgba(0,0,0,0.4) 0px 20px 35px;
+        margin-bottom: 3rem;
 
         .div_busqueda {
             display: flex;
@@ -14,34 +17,44 @@ export const StyledHome = styled.div`
 
             .input_busqueda{
                 width: 50%;
-                height: 25px;
+                height: 35px;
+                border: none;
+                outline: none;
+                border-radius: 15px 0px 0px 15px;
+                padding-left: 1rem;
             }
 
             .button_busqueda{
                 width: 7%;
-                background-color: #6001AA;
+                background-color: #03045E;
                 color:white;
                 padding: 0.25rem;
-                border-color: #bd00ff;
+                border: none;
+                border-radius: 0px 15px 15px 0px;
+
+                &:hover{
+                    cursor: pointer;
+                }
             }
         }
 
         .div_filtros{
-            background-color: blueviolet;
+            background-color: #00B4D8;
             display: flex;
             justify-content: space-evenly;
             margin-top: 1rem;
             margin-left: 21%;
             margin-right: 21%;
-            margin-bottom: 1rem;
-            padding: 0.5rem;
+            margin-bottom: 0.2rem;
+            padding: 0.2rem;
             align-items: center;
+            border-radius: 25px;
 
             .div_button{
                 display: flex;
                 align-content: center;
                 justify-content: center;
-                border: 1px solid black;
+                /* border: 1px solid black; */
                 width: 100%;
                 margin: 0;
                 padding: 0;
@@ -53,43 +66,151 @@ export const StyledHome = styled.div`
                     padding: 0.5rem;
                     width: 100%;
                     height: auto;
-                    background-color: #6001AA;
-                    border-color: #bd00ff;
+                    background-color: #0077B6;
                     color:white;
+                    border: none;
+
+                    &:hover{
+                        cursor: pointer;
+                    }
+
                 }
+                    .button_inicio{
+                        border-radius: 15px 0px 0px 15px;
+                    }
+                    .button_fin{
+                        border-radius: 0px 15px 15px 0px;
+                    }
             }
         }
     }
 
-    .div_filtro_continente{
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-        background-color: aqua;
-        margin-top: 20px;
-        margin-left: 21%;
-        margin-right: 21%;
-        padding: 1rem;
-        height: 16px;
-    }
+    .div_filtros2 {
+        margin: 0%;
+        padding: 0;
+        margin-left: 2%;
+        width: 96%;
+        background-color: #00B4D8;
+        min-height: 60px;
+        border-radius: 0px 0px 25px 25px;
+        box-shadow: rgba(0,0,0,0.4) 0px 20px 35px;
 
-    .div_ABC{
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        background-color: aqua;
-        margin-top: 20px;
-        margin-left: 21%;
-        margin-right: 21%;
-        padding: 1rem;
-        height: 16px;
-    }
+        .div_filtro_continente {
+            background-color: #00B4D8;
+            display: flex;
+            justify-content: space-evenly;
+            margin-top: -3rem;
+            margin-left: 21%;
+            margin-right: 21%;
+            margin-bottom: 3rem;
+            padding: 0.2rem;
+            align-items: center;
+            color: white;
 
+
+            div{
+                text-align: center;
+                border: 1px solid white;
+                min-width: 100px;
+                width: auto;
+                height: 21px;
+                padding: 0.5rem;
+                margin: 0.5rem;
+                border-radius: 25px;
+                box-sizing: content-box;
+
+                label{
+                    cursor: pointer;
+                }
+            }
+
+        }
+
+        .div_filtro_ABC2{
+            background-color: #00B4D8;
+            margin: 0%;
+            padding: 0;
+            margin-left: 2%;
+            width: 96%;
+            height: 60px;
+            border-radius: 0px 0px 25px 25px;
+            display: flex;
+            justify-content: space-evenly;
+            margin-top: 0;
+            margin-bottom: 4%;
+
+            .container_ABC{
+                display: flex;
+                width: 35%;
+                justify-content: space-evenly;
+
+                div{
+                    text-align: center;
+                    border: 1px solid white;
+                    min-width: 100px;
+                    width: auto;
+                    height: 21px;
+                    padding: 0.5rem;
+                    margin: 0.5rem;
+                    border-radius: 25px;
+                    box-sizing: content-box;
+                    color: white;
+
+                    
+                }
+            }
+
+        }
+    
+
+        .div_filtro_ABC{
+            background-color: #00B4D8;
+            margin: 0%;
+            padding: 0;
+            margin-left: 2%;
+            width: 96%;
+            height: 60px;
+            border-radius: 0px 0px 25px 25px;
+            display: flex;
+            justify-content: space-evenly;
+            margin-top: -3%;
+            margin-bottom: 4%;
+
+            .container_ABC{
+                display: flex;
+                width: 35%;
+                justify-content: space-evenly;
+
+                div{
+                    text-align: center;
+                    border: 1px solid white;
+                    min-width: 100px;
+                    width: auto;
+                    height: 21px;
+                    padding: 0.5rem;
+                    margin: 0.5rem;
+                    border-radius: 25px;
+                    box-sizing: content-box;
+                    color: white;
+
+                    label{
+                    &:hover{
+                        cursor: pointer;
+                    }
+                }
+                }
+            }
+
+        }
+
+    }
     .div_renderizado {
-        background-color: white;
+        background-color: transparent;
         display: flex;
         justify-content: space-around;
         flex-wrap: wrap;
+        margin-top: -2rem;
+        margin-bottom: 2rem;
     }
             
 `
