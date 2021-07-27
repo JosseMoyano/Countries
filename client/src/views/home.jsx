@@ -1,11 +1,11 @@
 import { React, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import FirstCountries from '../components/first_countries';
-import SearchedCountries from '../components/searched_countries';
+import Nav from '../components/nav';
 import { getCountry, searchCountries,  clearCountriesSearched, getActivities } from '../redux/action';
-import { StyledHome } from './Home/home';
-import Nav from './nav'
+import { StyledHome } from './StyledComponents/home';
+import PrimerosPaises from '../components/primeros_paises';
+import Paises from '../components/paises';
 
 export default function Home () {
     
@@ -112,12 +112,12 @@ export default function Home () {
         <StyledHome>
             <div className='header'>                
                 <div className='div_busqueda'>
-                    <input className='input_busqueda' type='text' name='Buscar' placeholder='Escribi aqui el País que deseas encontrar' onChange={onChange} value={country} />
+                    <input className='input_busqueda' type='text' name='Buscar' placeholder='Escribí aquí el país que deseas encontrar' onChange={onChange} value={country} />
                     <button className='button_busqueda' name='Buscar' onClick={(e) => onClick(e)}>Buscar</button>
                 </div>
                 <div className='div_filtros'>
                     <div className='div_button '>
-                        <button className='button_filtros button_inicio' onClick={onClick} name='Continente' value={continentes} >CONTINENTE</button >
+                        <button className='button_filtros button_inicio'  onClick={onClick} name='Continente' value={continentes} >CONTINENTE</button >
                     </div>
                     <div className='div_button'>
                         <button className='button_filtros' onClick={onClick} value={actividades} name='Actividad'>ACTIVIDADES</button>                
@@ -155,10 +155,10 @@ export default function Home () {
                                 activities?.map(a => (
                                     <div key={a.id} onChange={onChange}  >
                                         <input type='radio' id={a.name} value={a.id} name='actividad' />
-                                        <label>{a.name}</label>
+                                        <label htmlFor={a.name}>{a.name}</label>
                                     </div>
                                 ))
-                                ) : (<div className='div_filtro_continente button_div'  onClick={()=> history.push('/activities/add')}> No hay actividades para Mostrar ¿Quieres crearlas? </div>)
+                                ) : (<div className='div_filtro_continente button_div'  onClick={()=> history.push('/actividades/añadir')}> No hay actividades para Mostrar ¿Quieres crearlas? </div>)
                             }
                         </div>
                         ) : (null)                    
@@ -201,33 +201,29 @@ export default function Home () {
                     }
                 </div>
         ) : (null)
-    }
-        <div className='div_renderizado'>
-                {
-                    (ABC === true || poblacion === true ) ? (
-                        searchedCountries.todo?.length > 0   ? (
-                            <SearchedCountries searchedCountries={searchedCountries.todo} poblacion={poblacion} menorMayor={menorMayor} mayorMenor={mayorMenor} ABC={ABC} AZ={az} ZA={za} actividad={actividad} continente={continente} array='searchedCountries'  />
-                        ) : firstCountries.todo?.length > 0   ? (
-                            <FirstCountries  firstCountries={firstCountries.todo} poblacion={poblacion} menorMayor={menorMayor} mayorMenor={mayorMenor} ABC={ABC} AZ={az} ZA={za} actividad={actividad} continente={continente} array='firstCountries'  />
-                        ) : (<h1>Cargando</h1>)
+        }
+            <div className='div_renderizado'>
+                    {
+                        (ABC === true || poblacion === true ) ? (
+                            searchedCountries.todo?.length > 0   ? (
+                                <Paises searchedCountries={searchedCountries.todo} poblacion={poblacion} menorMayor={menorMayor} mayorMenor={mayorMenor} ABC={ABC} AZ={az} ZA={za} actividad={actividad} continente={continente} array='searchedCountries'  />
+                            ) : firstCountries.todo?.length > 0   ? (
+                                <PrimerosPaises  firstCountries={firstCountries.todo} poblacion={poblacion} menorMayor={menorMayor} mayorMenor={mayorMenor} ABC={ABC} AZ={az} ZA={za} actividad={actividad} continente={continente} array='firstCountries'  />
+                            ) : (<h1>Cargando...</h1>)
 
-                    ) : (!ABC && !poblacion) ? (
-                        searchedCountries.actual?.length > 0 ? (
-                            <SearchedCountries  searchedCountries={searchedCountries.actual} actividad={actividad} continente={continente} array='searchedCountries'  />
-                        ) : firstCountries.actual?.length > 0   ? (
-                            <FirstCountries  firstCountries={firstCountries.actual} continente={continente} array='firstCountries' actividad={actividad} />
-                        ) : searchedCountries.actual?.length === 0 ? (
-                            <h1>Cargando</h1>
-                        ) : (<h1>No se encontró el pais</h1>)
-                    ) : (<h1>No se encontró el pais</h1>) 
-                }
-        </div>
+                        ) : (!ABC && !poblacion) ? (
+                            searchedCountries.actual?.length > 0 ? (
+                                <Paises  searchedCountries={searchedCountries.actual} actividad={actividad} continente={continente} array='searchedCountries'  />
+                            ) : firstCountries.actual?.length > 0   ? (
+                                <PrimerosPaises  firstCountries={firstCountries.actual} continente={continente} array='firstCountries' actividad={actividad} />
+                            ) : searchedCountries.actual?.length === 0 ? (
+                                <h1>Cargando...</h1>
+                            ) : (<h1>No se encontró el país</h1>)
+                        ) : (<h1>No se encontró el país</h1>) 
+                    }
+            </div>
         </StyledHome>
         </>
     )
 }
-
-/*
-Por alguna razon, el activityDetail no funca... pero primero hace los estilos!! 
-*/
 

@@ -30,8 +30,5 @@ export default function FiltroContinente (props) {
         </>
     )
 
-    // if (countriesFilter.todo?.length === 0) return <h1>No hay paises que coincidan con el filtro</h1>
-    // if (ABC || poblacion) return countriesFilter.todo.map(country => <Pais key={country.id} name={country.name} bandera={country.bandera} continente={country.continente} id={country.id} />)
-    // if (!ABC && !poblacion) return countriesFilter.actual?.map(country => <Pais key={country.id} name={country.name} bandera={country.bandera} continente={country.continente} id={country.id} />) 
-    // return <h1>cargando...</h1>
+    
 }

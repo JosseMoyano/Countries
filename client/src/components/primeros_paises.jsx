@@ -4,11 +4,11 @@ import FiltroActividad from './filtro_actividad';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { order } from '../redux/action';
-import { orderByAZ, orderByZA, orderMayorMenor, orderMenorMayor } from '../utils';
+import { orderByAZ, orderByZA, orderMayorMenor, orderMenorMayor } from '../utils/funciones';
 
-export default function Countries (props) {
+export default function PrimerosPaises (props) {
 
-    const { ABC, AZ, ZA, menorMayor, mayorMenor, poblacion, continente, firstCountries, actividad, searchedCountries } = props;
+    const { ABC, AZ, ZA, menorMayor, mayorMenor, poblacion, continente, firstCountries, actividad } = props;
     
     const dispatch = useDispatch()
 
@@ -24,16 +24,7 @@ export default function Countries (props) {
     return (
         <>
             {
-                Array.isArray(searchedCountries) ? (
-                    continente ? (
-                        <FiltroContinente continente={continente} array='searchedCountries' countries={searchedCountries} ABC={ABC} poblacion={poblacion} />
-                    ) : actividad.length > 0 ? (
-                        <FiltroActividad actividad={parseInt(actividad.toString())} />
-                    ) : (
-                        searchedCountries?.map(
-                            country => <Pais key={country.id} name={country.name} bandera={country.bandera} continente={country.continente} id={country.id} />)
-                    )
-                ) : firstCountries ? (
+                firstCountries ? (
                     continente ? (
                             <FiltroContinente continente={continente} array='firstCountries' countries={firstCountries} poblacion={poblacion} ABC={ABC}/>  
                     ) : actividad.length > 0 ? (
@@ -45,4 +36,7 @@ export default function Countries (props) {
             }
         </>
     )
+
+    
+    
 }
